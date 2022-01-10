@@ -1,0 +1,19 @@
+{
+  "name": "cir3_projet_info",
+  "version": "1.0.0",
+  "description": "Projet d'informatique CIR3 : Reservation de salle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jairaume/CIR3_PROJET_INFO.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jairaume/CIR3_PROJET_INFO/issues"
+  },
+  "homepage": "https://github.com/jairaume/CIR3_PROJET_INFO#readme"
+}
