@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Connexion Plan'isen</title>       
+        <link rel="stylesheet" href="../css/main.css">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>        
+
+        
+    </head>
+
+    <body>
+        <h1 id="titre">Plan'isen</h1>
+        <form id="formLogin">
+
+            <br><br><br><br>
+
+            <input type="text" id="emailLogin" maxlength="15" placeHolder="Votre mail" required>
+            <input type="password" id="passwordLogin" placeHolder="Votre mot de passe" required>
+           
+            <button type="submit" id="Connexion" class='btn'>Connexion</button>
+
+            <br><br><br><br>
+        </form>
+        <form id="formRegister">    
+
+            <input type="text" id="nom" placeHolder="Votre nom" required>
+            <input type="text" id="prenom" placeHolder="Votre prénom" required>
+            <select type="text" id="promo" placeHolder="Votre promo" required >
+                <option value=""> Veuillez choisir votre promo</option>
+                    <optgroup label="L1"></optgroup>
+                        <option value="CIR1">CIR1</option>
+                        <option value="CPG1">CNB1</option>
+                        <option value="CNB1">CPG1</option>
+                    </optgroup>
+                    <optgroup label="L2"></optgroup>
+                        <option value="CPG1">CIR2</option>
+                        <option value="CNB1">CNB2</option>
+                        <option value="CPG1">CPG2</option>
+                    </optgroup>
+                    <optgroup label="L3"></optgroup>
+                        <option value="CIR3">CIR3</option>
+                        <option value="CNB3">CNB3</option>
+                        <option value="CSI3">CSI3</option>
+                    </optgroup>
+                    <optgroup label="M1"></optgroup>
+                        <option value="M1">M1</option>
+                    </optgroup>
+                    <optgroup label="M2"></optgroup>
+                        <option value="M2">M2</option>
+                    </optgroup>
+            </select>
+            
+
+            <input type="text" id="emailRegister" placeHolder="Votre mail" required>
+            <input type="password" id="passwordRegister" placeHolder="Votre mot de passe" required>
+           
+            <button type="submit" id="Inscription" class='btn'>S'inscrire</button>
+        </form>
+
+    </body>
+<script>
+    let socket = io();
+</script>
+</html>
+<script src="../js/login/modules/logger.js"></script>
+<script src="../js/login/login.js"></script>
