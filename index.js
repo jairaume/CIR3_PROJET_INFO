@@ -58,20 +58,10 @@ app.post('/login', urlencodedParser, (req,res) =>{
         req.session.email = email;
         req.session.password = password;
         req.session.save();
-        console.log(email + " s'est connecté ! ")
         sessionInfo[req.sessionsId] = email;
-
         res.redirect('/');
     }
 });
-
-io.on('connection', (socket) => {
-    console.log('Un Utilisateur s\'est connecté');
-
-})
-
-
-
 
 let PORT = process.env.PORT || 55555
 //Start serveur
@@ -81,11 +71,19 @@ http.listen(PORT, () => {
 
 
 io.on('connection', (socket) =>{
-    console.log("Nouvel utilisateur !")
-    socket.on('leave', ()=>{
-        console.log(socket.handshake.session.email + " veut se deconnecter !")
-        socket.handshake.session.email = '';
-        socket.handshake.session.password = '';
-        req.session = null;
-    })
+    if(!socket.handshake.session.email){
+        console.log("Nouvel utilisateur !")
+    }
+    else{
+        console.log(socket.handshake.session.email + " s'est connecté !")
+
+        socket.on('leave', ()=>{
+            console.log(socket.handshake.session.email + " veut se deconnecter !")
+            socket.handshake.session.email = '';
+            socket.handshake.session.password = '';
+            req.session = null;
+        });
+
+
+    }
 });
