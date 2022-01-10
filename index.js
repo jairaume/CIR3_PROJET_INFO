@@ -1,3 +1,4 @@
+/**** Import npm libs ****/
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -30,8 +31,16 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + 'front/html/login.html')
 });
 
+io.on('connection', (socket) => {
+    console.log('Un Utilisateur s\'est connecté');
+
+  })
+
+
+
+
 let PORT = process.env.PORT || 55555
 //Start serveur
 http.listen(PORT, () => {
-    console.log('Serveur lancé sur le port ',PORT);
+    console.log('Serveur lancé sur http://localhost:',PORT);
 });
