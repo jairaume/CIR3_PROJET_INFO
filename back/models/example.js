@@ -1,14 +1,9 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose");
 
-const studentSchema = new Schema({
-    firstName:  String,
-    lastName: String,
-    cursus:   String,
-    classes: [{ body: String, date: Date }],
-    enrolled: { type: Date, default: Date.now }
-  });
+const userSchema = new mongoose.Schema({
+    name: String
+});
 
-const Example = mongoose.model('Student', studentSchema)
+const Example = mongoose.model("users", userSchema);
 
-module.exports = Example
+module.exports = Example;
