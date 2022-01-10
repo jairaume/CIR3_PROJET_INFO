@@ -20,8 +20,19 @@ module.exports = function socketio(http) {
     );
 
     io.on("connection", (socket) => {
-        console.log("Un Utilisateur s'est connecté");
-
+        console.log("Un utilisateur s'est connecté");
+        
+        socket.on("register", (userMail,userMDP) => {
+            // Vérifier que le mail et mdp existent et correspondent en BDD pour connecter l'utilisateur
+        });
+      
+        socket.on("isRoomAvailable",roomNumber => {
+            // Renvoyer un boléen
+        });
+      
+        socket.on("roomCaracteristiques",roomNumber => {
+            // Obtenir puis envoyer au front les différentes caractéristiques de la room demandée
+        });
         io.on("disconnect", () => {
             console.log("Un utilisateur s'est déconnecté");
         })
