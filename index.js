@@ -14,11 +14,11 @@ app.use(express.static(path.join(__dirname, "/front")));
 
 //Redirection
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "/front/html/login.html"));
+  res.sendFile(path.join(__dirname, "/front/html/login.html"));
 });
 
 let PORT = process.env.PORT || 55555;
 //Start serveur
 http.listen(PORT, () => {
-    console.log("Serveur lancé sur http://localhost:" + PORT);
+  console.log("Serveur lancé sur http://localhost:" + PORT);
 });
