@@ -1,17 +1,8 @@
-module.exports = function socketio(http) {
+module.exports = function (http, session) {
   const io = require("socket.io")(http);
-  const db = require("./database")
+  const db = require("./database");
   const sharedsession = require("express-socket.io-session");
-
-  const session = require("express-session")({
-    secret: "eb8fcc253281389225b4f7872f2336918ddc7f689e1fc41b64d5c4f378cdc438",
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 2 * 60 * 60 * 1000,
-      secure: false,
-    },
-  });
+  const { body, validationResult } = require("express-validator");
 
   //config session
   io.use(
@@ -21,7 +12,11 @@ module.exports = function socketio(http) {
   );
 
   io.on("connection", (socket) => {
-    console.log("Un utilisateur s'est connecté");
+    if (!socket.handshake.session.email) {
+      console.log("Nouvel utilisateur vient d'arriver.");
+    } else {
+      console.log(socket.handshake.session.email + " s'est connecté !!");
+    }
 
     socket.on("register", (userMail, userMDP) => {
       // Vérifier que le mail et mdp existent et correspondent en BDD pour connecter l'utilisateur
@@ -34,8 +29,31 @@ module.exports = function socketio(http) {
     socket.on("roomCaracteristiques", (roomNumber) => {
       // Obtenir puis envoyer au front les différentes caractéristiques de la room demandée
     });
+
     socket.on("disconnect", () => {
-      console.log("Un utilisateur s'est déconnecté");
+     console.log("page f5 ou deco.");
+    });
+
+    socket.on("leave", () => {
+      console.log(socket.handshake.session.email + " veut se deconnecter !");
+      delete socket.handshake.session.email;
+      socket.handshake.session.save();
     });
   });
+  return {
+    login: (req, res) => {
+      const email = req.body.email;
+      const password = req.body.password;
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.log(errors);
+      } else {
+        req.session.email = email;
+        req.session.password = password;
+        req.session.save();
+        console.log(email + " s'est connecté ! ");
+      }
+    },
+  };
 };
