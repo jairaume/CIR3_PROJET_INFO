@@ -4,6 +4,7 @@
   "description": "Projet d'informatique CIR3 : Reservation de salle",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/jairaume/CIR3_PROJET_INFO/issues"
   },
-  "homepage": "https://github.com/jairaume/CIR3_PROJET_INFO#readme"
+  "homepage": "https://github.com/jairaume/CIR3_PROJET_INFO#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "express-socket.io-session": "^1.3.5",
+    "express-validator": "^6.14.0",
+    "mysql": "^2.18.1",
+    "react": "^17.0.2"
+  }
 }
