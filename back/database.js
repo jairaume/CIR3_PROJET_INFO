@@ -11,22 +11,24 @@ db.once("open", function () {
   console.log("connecté à Mongoose");
 });
 
-const Example = require(".models/example.js");
+const Example = require("./models/example");
 
-// Créer un étudiant
-const createStudent = async (studentData) => {
-  const student = await Example.create(studentData);
-  return student;
-};
+module.exports = {
+  // Créer un étudiant
+  createStudent: async (studentData) => {
+    const student = await Example.create(studentData);
+    return student;
+  },
 
-// Récupérer un étudiant
-const findStudent = async (firstName) => {
-  const student = await Example.findOne({ firstName });
-  return student;
-};
+  // Récupérer un étudiant
+  findStudent: async (firstName) => {
+    const student = await Example.findOne({ firstName });
+    return student;
+  },
 
-// Récupérer tous les étudiants
-const findStudents = async () => {
-  const student = await Example.find({});
-  return student;
+  // Récupérer tous les étudiants
+  findStudents: async () => {
+    const student = await Example.find({});
+    return student;
+  },
 };

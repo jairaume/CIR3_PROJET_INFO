@@ -9,6 +9,6 @@ const studentSchema = new Schema({
     enrolled: { type: Date, default: Date.now }
   });
 
-const Student = mongoose.model('Student', studentSchema)
+const Example = mongoose.model('Student', studentSchema)
 
 module.exports = Example
