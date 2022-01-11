@@ -11,15 +11,15 @@
 
     <body>        
         <button id="disconnectBtn"><i class="fas fa-sign-out-alt">Se déconnecter</i></button>
-
+        <p id="roomInfos">Salle : <span id="roomName"></span></p>
         <script>
             let socket = io();
         </script>
 
         <div class="container">
             <h1>TEST</h1>
-            <img src="https://media.discordapp.net/attachments/783594798627160065/930115217734656040/unknown.png?width=958&height=655" usemap="#etage8" class="mapper showcoords" name='test' id="test">
-            <map name="etage8" id="etage8">
+            <img id="imgEtage8" src="https://media.discordapp.net/attachments/783594798627160065/930115217734656040/unknown.png?width=958&height=655" usemap="#etage8" class="mapper showcoords" name='test'>
+            <map name="etage8" id="etage8" >
 
             </map>
         </div>
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="../mapper/maputil.js"></script>
 	<script type="text/javascript">	
         function showCoords(map,area,x,y,w,h) {
-            console.log('x : ',x, 'y :',y)
+            //console.log('x : ',x, 'y :',y)
         }
         </script>
     <script src="../js/main/main.js"></script>

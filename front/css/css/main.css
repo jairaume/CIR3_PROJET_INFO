@@ -17,4 +17,20 @@ html {
   color: #383838;
 }
 
+.salleName{
+  color:black;
+  z-index: 99999;
+}
+
+map {
+  z-index: 0;
+}
+area{
+  z-index: 1;
+  outline-color: green;
+}
+
+area:hover{
+  cursor:pointer;
+}
 /*# sourceMappingURL=main.css.map */
