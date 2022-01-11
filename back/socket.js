@@ -29,11 +29,19 @@ module.exports = function (http, session) {
 
     // Fonctions utilisables dans "./routes.js"
     return {
-
         // Connexion
         login: (req, res) => {
             const email = req.body.email;
             const password = req.body.password;
+
+            // TEMPORAIRE (pour les tests) :
+            if (email === "admin" && password === "admin") {
+                req.session.email = email;
+                req.session.save();
+                console.log("L'utilisateur \"" + email + "\" s'est connecté !");
+                res.redirect("/");
+                return
+            }
 
             // On regarde dans la DB si l'email et le mot de passe existent
             db.findUsers({ email, password }).then((users) => {
