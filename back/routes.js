@@ -29,8 +29,6 @@ module.exports = function (express, app, http) {
     }
   });
 
-
-
   app.post("/login", urlencodedParser, (req, res) => {
     socket.login(req, res);
     console.log("Redirection en cours..");
