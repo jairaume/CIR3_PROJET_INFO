@@ -8,6 +8,24 @@ module.exports = function (http, session) {
     io.use(sharedsession(session, { autoSave: true }));
 
     io.on("connection", (socket) => {
+        socket.on("createReservation", ({ salle, annee, mois, jour, horraire }) => {
+            db.createReservation({
+                salle,
+                annee,
+                mois,
+                jour,
+                horraire,
+                prenom: socket.handshake.session.prenom,
+                nom: socket.handshake.session.nom,
+            })
+                .then((reservation) => {
+                    socket.emit("reservationCreated", reservation);
+                })
+                .catch((err) => {
+                    socket.emit("reservationError", err);
+                });
+        });
+
         socket.on("isRoomAvailable", (roomNumber) => {
             // Renvoyer un boléen
         });
@@ -43,7 +61,7 @@ module.exports = function (http, session) {
                 req.session.save();
                 console.log("L'utilisateur \"" + email + "\" s'est connecté !");
                 res.redirect("/");
-                return
+                return;
             }
 
             // On regarde dans la DB si l'email et le mot de passe existent

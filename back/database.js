@@ -12,6 +12,7 @@ db.once("open", function () {
 });
 
 const Users = require("./models/users");
+const Reservations = require("./models/reservations");
 
 module.exports = {
     // Créer un étudiant
@@ -30,5 +31,11 @@ module.exports = {
     findAllUsers: async () => {
         const student = await Users.find({});
         return student;
+    },
+
+    // Créer une réservation
+    createReservation: async (reservationData) => {
+        const reservation = await Reservations.create(reservationData);
+        return reservation;
     },
 };
