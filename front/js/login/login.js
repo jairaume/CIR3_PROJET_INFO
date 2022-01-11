@@ -3,10 +3,22 @@ const formRegister = document.getElementById('formRegister');
 const email = document.getElementById('emailLogin')
 const password = document.getElementById("passwordLogin")
 
+const nom = document.getElementById("nom")
+const prenom = document.getElementById("prenom")
+const promo = document.getElementById("promo")
+const emailRegister = document.getElementById("emailRegister")
+const passwordRegister = document.getElementById("passwordRegister")
+
 let join = false;
 
 formLogin.addEventListener('submit', (event) => {
     console.log('Connection');
     event.preventDefault();
     logger.connexion(email.value, password.value);
+});
+
+formRegister.addEventListener('submit', (event) => {
+    console.log('Inscription');
+    event.preventDefault();
+    logger.inscription(nom.value, prenom.value, promo.value, emailRegister.value, passwordRegister.value);
 });

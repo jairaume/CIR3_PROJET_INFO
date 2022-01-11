@@ -100,14 +100,20 @@ module.exports = function (http, session, db) {
                 if (users.length === 0) {
                     // L'utilisateur n'existe pas encore
                     db.createUser({ prenom, nom, email, password, promo, admin }).then(() => {
+                        req.session.email = email;
+                        req.session.prenom = prenom;
+                        req.session.nom = nom;
+                        req.session.admin = admin;
+                        req.session.save();
                         console.log("L'utilisateur \"" + email + "\" vient de s'inscrire");
+                        res.redirect("/");
                     });
                 } else {
                     // L'utilisateur existe déjà
                     console.log("L'utilisateur \"" + email + '" existe déjà');
+                    res.redirect("/");
                 }
             });
-            res.redirect("/");
         },
     };
 };
