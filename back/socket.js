@@ -9,11 +9,11 @@ module.exports = function (http, session, db) {
     io.on("connection", (socket) => {
         socket.on("createReservation", ({ salle, annee, mois, jour, horraire }) => {
             db.createReservation({
-                salle,
-                annee,
-                mois,
-                jour,
-                horraire,
+                salle: salle,
+                annee: annee,
+                mois: mois,
+                jour: jour,
+                horraire: horraire,
                 prenom: socket.handshake.session.prenom,
                 nom: socket.handshake.session.nom,
             })
@@ -64,7 +64,7 @@ module.exports = function (http, session, db) {
             }
 
             // On regarde dans la DB si l'email et le mot de passe existent
-            db.findUsers({ email, password }).then((users) => {
+            db.getUsers({ email, password }).then((users) => {
                 if (users.length === 0) {
                     // L'utilisateur n'existe pas
                     console.log("L'utilisateur", { email, password }, "n'existe pas");
@@ -96,7 +96,7 @@ module.exports = function (http, session, db) {
             const admin = false; // Pas admin par défaut
 
             // On regarde dans la DB si l'email existe déjà
-            db.findUsers({ email }).then((users) => {
+            db.getUsers({ email }).then((users) => {
                 if (users.length === 0) {
                     // L'utilisateur n'existe pas encore
                     db.createUser({ prenom, nom, email, password, promo, admin }).then(() => {

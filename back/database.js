@@ -22,14 +22,8 @@ module.exports = {
     },
 
     // Récupérer des étudiants
-    findUsers: async (studentData) => {
-        const student = await Users.find(studentData);
-        return student;
-    },
-
-    // Récupérer tous les étudiants
-    findAllUsers: async () => {
-        const student = await Users.find({});
+    getUsers: async (studentData, selector = "-_id -__v") => {
+        const student = await Users.find(studentData).select(selector);
         return student;
     },
 
@@ -40,8 +34,8 @@ module.exports = {
     },
 
     // Récupérer des réservations
-    getReservations: async (reservationData) => {
-        const reservation = await Reservations.find(reservationData);
+    getReservations: async (reservationData, selector = "-_id -__v") => {
+        const reservation = await Reservations.find(reservationData).select(selector);
         return reservation;
     },
 };
