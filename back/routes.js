@@ -9,7 +9,9 @@ module.exports = function (express, app, http) {
         },
     });
     app.use(session);
-    const socket = require("./socket")(http, session);
+    const db = require("./database");
+    const socket = require("./socket")(http, session, db);
+    const api = require("./api")(app, session, db);
     const path = require("path");
     const bodyParser = require("body-parser");
     const { body, validationResult } = require("express-validator");

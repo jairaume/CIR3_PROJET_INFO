@@ -1,6 +1,5 @@
-module.exports = function (http, session) {
+module.exports = function (http, session, db) {
     const io = require("socket.io")(http);
-    const db = require("./database");
     const sharedsession = require("express-socket.io-session");
     const { body, validationResult } = require("express-validator");
 

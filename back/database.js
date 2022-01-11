@@ -38,4 +38,10 @@ module.exports = {
         const reservation = await Reservations.create(reservationData);
         return reservation;
     },
+
+    // Récupérer des réservations
+    getReservations: async (reservationData) => {
+        const reservation = await Reservations.find(reservationData);
+        return reservation;
+    },
 };
