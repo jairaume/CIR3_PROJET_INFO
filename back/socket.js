@@ -37,6 +37,9 @@ module.exports = function (http, session) {
             // TEMPORAIRE (pour les tests) :
             if (email === "admin" && password === "admin") {
                 req.session.email = email;
+                req.session.prenom = "admin";
+                req.session.nom = "admin";
+                req.session.admin = true;
                 req.session.save();
                 console.log("L'utilisateur \"" + email + "\" s'est connecté !");
                 res.redirect("/");
@@ -55,6 +58,9 @@ module.exports = function (http, session) {
                         console.log(errors);
                     } else {
                         req.session.email = email;
+                        req.session.prenom = users[0].prenom;
+                        req.session.nom = users[0].nom;
+                        req.session.admin = users[0].admin;
                         req.session.save();
                         console.log("L'utilisateur \"" + email + "\" s'est connecté !");
                     }
