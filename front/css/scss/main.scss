@@ -1,0 +1,37 @@
+/////////////////////////////////////////////
+
+$black: #383838;
+$white: #f9f9f9;
+$primary: rgb(65, 187, 120);
+$blue: rgb(79, 139, 228);
+$red: rgb(231, 76, 60);
+
+
+/////////////////////////////////////////////
+@import url('https://fonts.googleapis.com/css2?family=Hanalei+Fill&family=Noto+Sans&display=swap');
+
+/////////////////////////////////////////////
+
+%boxShadow {
+    box-shadow: (1px 5px 5px 0px lighten($black, $amount: 50));
+}
+
+/////////////////////////////////////////////
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+*::selection{
+    background : transparentize(lighten($blue,10), 0.2);
+    border-radius: 5%;
+}
+
+/////////////////////////////////////////////
+html {
+    font-family: 'Noto Sans', sans-serif;
+    text-align: center;
+    background-color: $white;
+    color: $black;
+}
