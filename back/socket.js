@@ -47,6 +47,10 @@ module.exports = function (http, session, db) {
                 });
         });
 
+        socket.on("askName", () => {
+            socket.emit("getName", socket.handshake.session.prenom);
+        });
+
         socket.on("isRoomAvailable", (roomNumber) => {
             // Renvoyer un boléen
         });

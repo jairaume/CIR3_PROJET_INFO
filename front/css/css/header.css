@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanalei+Fill&family=Noto+Sans&display=swap");
+
+body, html {
+    margin: 0;
+    font-family: "Noto Sans", sans-serif;
+}
+
+header {
+    height: 80px;
+    background-color: rgb(40, 37, 43);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    margin-bottom: 30px;
+}
+
+header > h1 {
+    margin: 0;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+header > #profile > p {
+    width: 70px;
+} 
+
+header > #profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    gap: 10px;
+    right: 50px;
+    cursor: pointer;
+}
+
+header > #profile > img {
+    width: 30px;
+    height: 30px;
+}
+
+header > #profile > p {
+    margin-right: 50px;
+    font-size: 1.2em;
+}
+
+@media screen and (max-width: 450px) {
+    header {
+        padding: 0 15px;
+    }
+
+    header > h1 {
+        font-size: 1.5em;
+    }
+
+    header > #profile {
+        left: 15px;
+    }
+
+    header > #profile > img {
+        width: 20px;
+    }
+
+    header > #profile > p {
+        margin-right: 15px;
+    }
+}
