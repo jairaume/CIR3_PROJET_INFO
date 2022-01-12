@@ -43,12 +43,10 @@ let salleSettings=(salleEtage)=>{
     let selected = "";
     let currentRoom = "";
     for (const salle of salleEtage) {
-        console.log(salle)
         let tmpName = salle.name
         //let tmpId = salle.getAttribute('id')
         let tmpRes = salle.reserve
-        console.log(document.getElementById(salle.name['id']))
-        document.getElementById(salleEtage.name).addEventListener('mouseover',()=>{
+        document.getElementById(salle.name).addEventListener('mouseover',()=>{
             if(!selected){
                 currentRoom = tmpName;
                 roomName.innerHTML = tmpName
@@ -59,7 +57,7 @@ let salleSettings=(salleEtage)=>{
             $('#'+salle.name).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
         });
 
-        salle.addEventListener('mouseleave',()=>{
+        document.getElementById(salle.name).addEventListener('mouseleave',()=>{
             if((selected && currentRoom!=tmpName) || !selected){
                 $('#'+salle.name).data('maphilight', tmpRes?occupied:free).trigger('alwaysOn.maphilight');
             }
@@ -68,7 +66,7 @@ let salleSettings=(salleEtage)=>{
             }
         })
 
-        salle.addEventListener('click',()=>{
+        document.getElementById(salle.name).addEventListener('click',()=>{
             selected = true
             currentRoom = tmpName;
             for (const s of salleEtage) {   
@@ -122,9 +120,10 @@ let occupiedselect = {
     strokeWidth:'2',
     fillOpacity:'0.7'
 }
-/*
-function updateAvailability(){
-    areasEtage8.forEach(e => {
+
+function updateAvailability(areasEtage){
+    console.log(areasEtage)
+    areasEtage.forEach(e => {
         if(e.reserve){
             $('#'+e.name).data('maphilight', occupied).trigger('alwaysOn.maphilight');
         }
@@ -137,11 +136,11 @@ function updateAvailability(){
 function showRoomInfos(room){
     
 }
-updateAvailability();
+//updateAvailability();
 $(document).ready(function () {
     let data={};
     $('.map').maphilight({alwaysOn:true});
 });  
 
 showCoords()
-*/
+

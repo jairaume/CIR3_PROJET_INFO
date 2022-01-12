@@ -39,4 +39,5 @@ let refresh = (numeroEtage)=>{
     insertImage.innerHTML += etagenumber.map
     createRoomAreas(numeroEtage,etagenumber.salleEtage)
     salleSettings(etagenumber.salleEtage)
+    updateAvailability(etagenumber.salleEtage)
 }
