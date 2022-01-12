@@ -5,13 +5,13 @@
         <title>Plan'ISEN</title>
         <script src="/socket.io/socket.io.js"></script>
         <link rel="stylesheet" href="../css/css/main.css">
+        <link rel="stylesheet" href="../css/css/plan.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type='text/javascript' src='http://davidlynch.org/projects/maphilight/jquery.maphilight.js'></script>
 
         <link href='../calendar/lib/main.css' rel='stylesheet' />
         <script src='../calendar/lib/main.js'></script>
         <script>
-
             document.addEventListener('DOMContentLoaded', function() {
               var calendarEl = document.getElementById('calendar');
               var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -19,16 +19,16 @@
               });
               calendar.render();
             });
-      
-          </script>
+        </script>
     </head>
 
     <body>        
         <button id="disconnectBtn"><i class="fas fa-sign-out-alt">Se déconnecter</i></button>
-        <script>
-            let socket = io();
-        </script>
 
+        <div id="reservationDiv">
+
+        </div>
+        
         <div id="container">
             <div id="mapContainer">
 
@@ -37,16 +37,20 @@
                     
                 </map>
             </div>
+
             <div id="modalContainer">
                 <h3 id="roomInfos"><b><span id="roomName"></span></b></h3>
             </div>
+
         </div>
-        <div id='calendar'></div>
+
+        <div id='calendar'>
+
+        </div>
+
     </body>
 
-    <script>
-        let socket = io();
-    </script>
+    <script>let socket = io();</script>
     <script type="text/javascript" src="../mapper/cvi_map_lib.js"></script>
     <script type="text/javascript" src="../mapper/mapper.js"></script>
     <script type="text/javascript" src="../mapper/maputil.js"></script>

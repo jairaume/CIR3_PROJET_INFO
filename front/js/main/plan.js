@@ -43,14 +43,14 @@ let etages = [-1,0,2,4,6,8,9]
 
 /* ------------- Creneau actuel --------------- */
 //let body = document.getElementsByTagName("body")[0]
-let body = document.getElementById("reservationDiv")
+let reservationDiv = document.getElementById("reservationDiv")
 let div = document.createElement("div")
 
 /* ------------- Balise d'annonce de la "reservation" --------------- */
 let reservationText = document.createElement("p")
 reservationText.textContent="Reservation"
 reservationText.id="reserv"
-body.appendChild(reservationText)
+reservationDiv.appendChild(reservationText)
 
 /* ------------- Flexbox de la reservation et du calendrier--------------- */
 let flexbox = document.createElement("div")
@@ -126,9 +126,9 @@ reservDiv.innerHTML+=boutonDB
 
 flexbox.appendChild(reservDiv)
 flexbox.appendChild(calendrierDiv)
-body.appendChild(flexbox)
+reservationDiv.appendChild(flexbox)
 
-body.appendChild(infoDiv) // a suppr
+reservationDiv.appendChild(infoDiv) // a suppr
 
 /* ------------- Actualisation des champs lors d'interactions --------------- */
 
