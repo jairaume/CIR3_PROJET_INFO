@@ -6,8 +6,7 @@ let roomName = document.getElementById("roomName")
 let roomInfos = document.getElementById("roomInfos")
 roomInfos.style.position = "absolute"
 roomInfos.style.zIndex = "9999"
-let selected = "";
-let currentRoom = "";
+
 
 let areasEtage8 = [
     {shape:'rect', coords:[64,85,152,175], name:"A811", reserve :true},
@@ -22,61 +21,65 @@ let areasEtage8 = [
     {shape:'poly', coords:[483,442, 567,432, 579,536, 494,545], name:"A820", reserve :true}
 ]
 
-function createRoomAreas(){
-    areasEtage8.forEach(e => {
+function createRoomAreas(numeroEtage,areasEtage){
+    areasEtage.forEach(e => {
         let tmpArea = document.createElement('area')
         tmpArea.setAttribute('name',e.name)
         if(e.reserve == true){
             tmpArea.setAttribute('reserve',true)
         }
-        tmpArea.classList.add("etage8")
+        tmpArea.classList.add("etage"+numeroEtage)
         tmpArea.setAttribute('shape', e.shape)
         tmpArea.setAttribute('coords', e.coords)
         tmpArea.setAttribute('id',e.name)
-        mapEtage8.appendChild(tmpArea)
+        document.getElementById("etage"+numeroEtage).appendChild(tmpArea)
 
     });
 
 }
 
+//createRoomAreas(); //fait
+let salleSettings=(salleEtage)=>{
+    let selected = "";
+    let currentRoom = "";
+    for (const salle of salleEtage) {
+        console.log(salle)
+        let tmpName = salle.name
+        //let tmpId = salle.getAttribute('id')
+        let tmpRes = salle.reserve
+        console.log(document.getElementById(salle.name['id']))
+        document.getElementById(salleEtage.name).addEventListener('mouseover',()=>{
+            if(!selected){
+                currentRoom = tmpName;
+                roomName.innerHTML = tmpName
+            }
 
-createRoomAreas();
 
-for (const salle of salleEtage8) {
-    let tmpName = salle.getAttribute('name')
-    let tmpId = salle.getAttribute('id')
-    let tmpRes = salle.hasAttribute('reserve')
+            console.log('#'+tmpName)
+            $('#'+salle.name).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
+        });
 
-    salle.addEventListener('mouseover',()=>{
-        if(!selected){
-            currentRoom = tmpId;
-            roomName.innerHTML = tmpId
-        }
+        salle.addEventListener('mouseleave',()=>{
+            if((selected && currentRoom!=tmpName) || !selected){
+                $('#'+salle.name).data('maphilight', tmpRes?occupied:free).trigger('alwaysOn.maphilight');
+            }
+            else{
+                $('#'+salle.getAttribute('name')).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
+            }
+        })
 
-
-        console.log('#'+tmpName)
-        $('#'+salle.getAttribute('name')).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
-    });
-
-    salle.addEventListener('mouseleave',()=>{
-        if((selected && currentRoom!=tmpId) || !selected){
-            $('#'+salle.getAttribute('name')).data('maphilight', tmpRes?occupied:free).trigger('alwaysOn.maphilight');
-        }
-        else{
+        salle.addEventListener('click',()=>{
+            selected = true
+            currentRoom = tmpName;
+            for (const s of salleEtage) {   
+                $('#'+s.getAttribute('name')).data('maphilight', s.hasAttribute('reserve')?occupied:free).trigger('alwaysOn.maphilight');
+            };
             $('#'+salle.getAttribute('name')).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
-        }
-    })
-
-    salle.addEventListener('click',()=>{
-        selected = true
-        currentRoom = tmpId;
-        for (const s of salleEtage8) {   
-            $('#'+s.getAttribute('name')).data('maphilight', s.hasAttribute('reserve')?occupied:free).trigger('alwaysOn.maphilight');
-        };
-        $('#'+salle.getAttribute('name')).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
-        reservDB.salle=currentRoom
-    })
+            reservDB.salle=currentRoom
+        })
+    }
 }
+
 let occupied = {
     alwaysOn:true,
     fillColor:'ff0000',
@@ -119,7 +122,7 @@ let occupiedselect = {
     strokeWidth:'2',
     fillOpacity:'0.7'
 }
-
+/*
 function updateAvailability(){
     areasEtage8.forEach(e => {
         if(e.reserve){
@@ -141,3 +144,4 @@ $(document).ready(function () {
 });  
 
 showCoords()
+*/

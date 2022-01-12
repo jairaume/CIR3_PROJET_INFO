@@ -213,3 +213,11 @@ document.getElementById("reservation").addEventListener("click",event=>{
 
 })
 
+refresh(8); 
+// Interaction avec le bouton "etages"
+document.getElementById("etages").addEventListener("change",event=>{
+    console.log("Etage à affiché : ",document.getElementById("etages").value)
+    let newEtage = document.getElementById("etages").value;
+
+
+})
