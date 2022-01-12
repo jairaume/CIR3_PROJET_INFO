@@ -25,6 +25,28 @@ module.exports = function (http, session, db) {
                 });
         });
 
+        socket.on("cancelReservation", (reservation) => {
+            db.cancelReservation(reservation)
+                .then((reservation) => {
+                    socket.emit("reservationCanceled", reservation);
+                })
+                .catch((err) => {
+                    socket.emit("reservationError", err);
+                });
+        });
+
+        socket.on("askReservations", () => {
+            let prenom = socket.handshake.session.prenom;
+            let nom = socket.handshake.session.nom;
+            db.getReservations({ prenom: prenom, nom: nom })
+                .then((reservations) => {
+                    socket.emit("getReservations", reservations);
+                })
+                .catch((err) => {
+                    socket.emit("reservationError", err);
+                });
+        });
+
         socket.on("isRoomAvailable", (roomNumber) => {
             // Renvoyer un boléen
         });

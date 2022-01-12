@@ -38,4 +38,10 @@ module.exports = {
         const reservation = await Reservations.find(reservationData).select(selector);
         return reservation;
     },
+
+    // Annule une réservation
+    cancelReservation: async (reservationData) => {
+        const reservation = await Reservations.remove(reservationData);
+        return reservation;
+    },
 };

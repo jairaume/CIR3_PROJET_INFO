@@ -20,14 +20,25 @@ module.exports = function (express, app, http) {
     // Config des dossiers de fichiers front
     app.use(express.static(path.join(__dirname, "../front")));
 
-    // Redirection
+    // Redirection acceuil
     app.get("/", (req, res) => {
         if (!req.session.email) {
             // Utilisateur non connecté
-            res.sendFile(path.join(__dirname, "../front/html/index.html"));
+            res.sendFile(path.join(__dirname, "../front/html/login.html"));
         } else {
             // Utilisateur connecté
             res.sendFile(path.join(__dirname, "../front/html/index.html"));
+        }
+    });
+
+    // Redirection reservations
+    app.get("/reservations", (req, res) => {
+        if (!req.session.email) {
+            // Utilisateur non connecté
+            res.sendFile(path.join(__dirname, "../front/html/login.html"));
+        } else {
+            // Utilisateur connecté
+            res.sendFile(path.join(__dirname, "../front/html/reservations.html"));
         }
     });
 

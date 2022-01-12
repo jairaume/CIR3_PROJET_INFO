@@ -1,0 +1,80 @@
+body, html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 60px;
+}
+
+#past, #future {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 25px;
+    max-width: 500px;
+    margin: auto;
+}
+
+#past {
+    margin: 50px auto;
+}
+
+#past > .card {
+    background-color: rgb(233, 86, 86);
+    border: 1px solid rgb(163, 47, 47);
+}
+
+#future > .card {
+    background-color: rgb(148, 224, 118);
+    border: 1px solid rgb(57, 163, 47);
+}
+
+.card {
+    width: 110px;
+    padding: 10px 20px 25px 20px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.card > h2 {
+    font-size: 24px;
+}
+
+.card > p {
+    font-size: 16px;
+    margin: 5px;
+}
+
+.card > button {
+    margin-top: 5px;
+    border: none;
+    height: 25px;
+    width: 75px;
+    cursor: pointer;
+    background-color: white;
+    opacity: 0.75;
+    color: rgb(57, 163, 47);
+    border: 1px solid rgb(57, 163, 47);
+    border-radius: 8px;
+    transition: all 0.1s;
+}
+
+.card > button:hover {
+    opacity: 1;
+}
+
+@media screen and (max-width: 550px) {
+    #past, #future {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #past, #future {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
