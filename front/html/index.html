@@ -5,25 +5,43 @@
         <title>Plan'ISEN</title>
         <script src="/socket.io/socket.io.js"></script>
         <link rel="stylesheet" href="../css/css/main.css">
-        
-    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type='text/javascript' src='http://davidlynch.org/projects/maphilight/jquery.maphilight.js'></script>
+
+        <link href='../calendar/lib/main.css' rel='stylesheet' />
+        <script src='../calendar/lib/main.js'></script>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+              var calendarEl = document.getElementById('calendar');
+              var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+              });
+              calendar.render();
+            });
+      
+          </script>
     </head>
 
     <body>        
         <button id="disconnectBtn"><i class="fas fa-sign-out-alt">Se déconnecter</i></button>
-        <p id="roomInfos">Salle : <span id="roomName"></span></p>
         <script>
             let socket = io();
         </script>
 
-        <div class="container">
-            <h1>TEST</h1>
-            <img id="imgEtage8" src="https://media.discordapp.net/attachments/783594798627160065/930115217734656040/unknown.png?width=958&height=655" usemap="#etage8" class="mapper showcoords" name='test'>
-            <map name="etage8" id="etage8" >
+        <div id="container">
+            <div id="mapContainer">
 
-            </map>
+                <img id="map" src="https://media.discordapp.net/attachments/783594798627160065/930115217734656040/unknown.png?width=958&height=655" usemap="#etage8" class="map" name='test'>
+                <map name="etage8" id="etage8" >
+                    
+                </map>
+            </div>
+            <div id="modalContainer">
+                <h3 id="roomInfos"><b><span id="roomName"></span></b></h3>
+            </div>
         </div>
-      
+        <div id='calendar'></div>
     </body>
     <script type="text/javascript" src="../mapper/cvi_map_lib.js"></script>
     <script type="text/javascript" src="../mapper/mapper.js"></script>

@@ -35,3 +35,43 @@ html {
     background-color: $white;
     color: $black;
 }
+
+#container{
+    display:flex;
+    flex-flow: row-wrap;
+}
+
+#mapContainer{
+    margin:1rem;
+    background-color: darken($white,10);
+    padding:1rem;
+}
+
+#modalContainer{
+    background-color: darken($white,10);
+    padding:1rem;
+    margin:1rem;
+    width:100%;
+
+    & h3{
+        margin:0;
+    }
+}
+
+
+.salleName{
+    color:black;
+    z-index: 99999;
+  }
+  
+  map {
+    z-index: 0;
+  }
+  area{
+    z-index: 1;
+    &:hover{
+        cursor:pointer;
+    }
+  }
+  
+  
