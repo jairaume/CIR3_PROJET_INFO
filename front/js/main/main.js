@@ -74,6 +74,7 @@ for (const salle of salleEtage8) {
             $('#'+s.getAttribute('name')).data('maphilight', s.hasAttribute('reserve')?occupied:free).trigger('alwaysOn.maphilight');
         };
         $('#'+salle.getAttribute('name')).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
+        reservDB.salle=currentRoom
     })
 }
 let occupied = {

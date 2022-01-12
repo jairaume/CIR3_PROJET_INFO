@@ -65,6 +65,7 @@ module.exports = function (http, session, db) {
             socket.handshake.session.save();
         });
         socket.on("askIsConnected",()=>{
+            console.log("isConnected, email : ",socket.handshake.session.email)
             socket.emit("respondIsConnected",socket.handshake.session.email)
           })
       
@@ -75,8 +76,7 @@ module.exports = function (http, session, db) {
             mois : ${reservation.mois}
             annee : ${reservation.annee}
             horraire : ${reservation.horraire}
-            prenom : ${reservation.prenom}
-            nom : ${reservation.nom}
+            email : ${socket.handshake.session.email}
             `)
         })
     });
