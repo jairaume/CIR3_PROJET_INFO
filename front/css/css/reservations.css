@@ -11,9 +11,9 @@ h1 {
 #past, #future {
     display: grid;
     place-items: center;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     row-gap: 25px;
-    max-width: 500px;
+    max-width: 700px;
     margin: auto;
 }
 
@@ -64,6 +64,13 @@ h1 {
 
 .card > button:hover {
     opacity: 1;
+}
+
+@media screen and (max-width: 750px) {
+    #past, #future {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 500px;
+    }
 }
 
 @media screen and (max-width: 550px) {
