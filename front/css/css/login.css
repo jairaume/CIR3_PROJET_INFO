@@ -1,0 +1,35 @@
+#formLogin, #formRegister {
+    background-color: rgb(104, 102, 117);
+    max-width: 350px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 30px
+}
+
+#formRegister {
+    display: none;
+}
+
+#formLogin > input, #formRegister > input {
+    margin: 5px 0;
+    padding: 8px 10px;
+    outline: none;
+}
+
+#formLogin > button, #formRegister > button {
+    margin: 5px 0;
+    padding: 8px 10px;
+    outline: none;
+}
+
+#register, #login {
+    cursor: pointer;
+    color: white;
+    margin: 20px 0 0 0;
+}
+
+#promo {
+    margin: 5px 0;
+    padding: 8px 5px;
+}
