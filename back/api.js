@@ -21,4 +21,16 @@ module.exports = function (app, session, db) {
     app.get("/api/get/salles/:floor", (req, res) => {
         res.json(Salles.filter((salle) => salle.floor === req.params.floor));
     });
+
+    app.get("/api/get/calendar/resources", (req, res) => {
+        db.getResources().then((resources) => {
+            res.json(resources);
+        });
+    });
+
+    app.get("/api/get/calendar/events", (req, res) => {
+        db.getEvents().then((events) => {
+            res.json(events);
+        });
+    });
 };
