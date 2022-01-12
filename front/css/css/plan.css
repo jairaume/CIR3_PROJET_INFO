@@ -1,0 +1,24 @@
+*{
+    margin:0;
+    padding:0;
+}
+#reserv{
+    text-align:center;
+    font-size:5rem;
+    margin:0;
+}
+
+#flexbox{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    font-size:2rem;
+}
+
+#flexbox>div{
+    flex-basis:auto;
+    flex-grow:1;
+    text-align:center;
+    padding:10px;
+    margin-top:1rem;
+}

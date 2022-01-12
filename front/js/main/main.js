@@ -2,6 +2,7 @@ let mapEtage8 = document.getElementById("etage8")
 let imgEtage8 = document.getElementById("imgEtage8")
 let salleEtage8 = document.getElementsByClassName("etage8")
 let roomName = document.getElementById("roomName")
+// ATTENTION : balise <p id="roomInfos"> obsolète, voir équipe front concernant le plan
 let roomInfos = document.getElementById("roomInfos")
 roomInfos.style.position = "absolute"
 roomInfos.style.zIndex = "9999"
