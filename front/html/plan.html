@@ -43,6 +43,10 @@
         </div>
         <div id='calendar'></div>
     </body>
+
+    <script>
+        let socket = io();
+    </script>
     <script type="text/javascript" src="../mapper/cvi_map_lib.js"></script>
     <script type="text/javascript" src="../mapper/mapper.js"></script>
     <script type="text/javascript" src="../mapper/maputil.js"></script>
@@ -50,7 +54,8 @@
         function showCoords(map,area,x,y,w,h) {
             //console.log('x : ',x, 'y :',y)
         }
-        </script>
+    </script>
     <script src="../js/main/main.js"></script>
     <script src="../js/main/buttons.js" ></script>
+    <script src="../js/main/plan.js" ></script>
 </html>

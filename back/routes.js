@@ -27,8 +27,13 @@ module.exports = function (express, app, http) {
             res.sendFile(path.join(__dirname, "../front/html/login.html"));
         } else {
             // Utilisateur connecté
-            res.sendFile(path.join(__dirname, "../front/html/index.html"));
+            res.sendFile(path.join(__dirname, "../front/html/plan.html"));
         }
+    });
+
+    // A SUPPRIMER A LA FIN DU PROJET 
+    app.get("/plan", (req, res) => {
+      res.sendFile(path.join(__dirname, "../front/html/plan.html"));
     });
 
     // Redirection reservations

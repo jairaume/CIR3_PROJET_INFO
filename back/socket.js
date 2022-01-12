@@ -64,6 +64,21 @@ module.exports = function (http, session, db) {
             delete socket.handshake.session.email;
             socket.handshake.session.save();
         });
+        socket.on("askIsConnected",()=>{
+            socket.emit("respondIsConnected",socket.handshake.session.email)
+          })
+      
+        socket.on("reservation",reservation=>{
+        console.log(`Une reservation a été faite :
+            salle : ${reservation.salle}
+            jour : ${reservation.jour}
+            mois : ${reservation.mois}
+            annee : ${reservation.annee}
+            horraire : ${reservation.horraire}
+            prenom : ${reservation.prenom}
+            nom : ${reservation.nom}
+            `)
+        })
     });
 
     // Fonctions utilisables dans "./routes.js"
