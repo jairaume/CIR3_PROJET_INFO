@@ -39,7 +39,7 @@ let creneaux = [
 ]
 let creneauxNbr = creneaux.length+1
 
-let etages = [-1,0,2,4,6,8,9]
+let etages = [8,-1,0,2,4,6,8,9]
 
 /* ------------- Creneau actuel --------------- */
 //let body = document.getElementsByTagName("body")[0]
@@ -198,3 +198,13 @@ document.getElementById("reservation").addEventListener("click",event=>{
     else if(!isConnected) alert("Veuillez vous connecter avant de faire une reservation.")
     else socket.on("reservation",reservDB)
 })
+
+
+// Interaction avec le bouton "etages"
+document.getElementById("etages").addEventListener("change",event=>{
+    console.log("Etage à affiché : ",document.getElementById("etages").value)
+    let newEtage = document.getElementById("etages").value;
+    refresh(newEtage)
+
+})
+

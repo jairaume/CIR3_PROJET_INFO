@@ -27,27 +27,29 @@ etageObj = {
         map : "<map name='etage8' id='etage8'> </map>"    
     }
 }
-let numEtage = 0
+
+socket.on('roomInfos',(data)=>{
+    refresh(data)
+})
 
 
-let refresh = (numeroEtage)=>{
+let refresh = (data)=>{
     //updateAvailability();
-    numEtage = numeroEtage;
+    let numeroEtage = document.getElementById("etages").value
+    console.log('data : ', data, 'num', numeroEtage)
+    initRoomInfos(data,etageObj["etage" + numeroEtage].salleEtage)
     $(document).ready(function () {
-        let data={};
+        let data2={};
         $('.map').maphilight({alwaysOn:true});
     });  
 
-
+    
     let imgRemove = document.getElementById('map')
     let insertImage = document.getElementById('mapContainer')
-    console.log(insertImage)
     if(imgRemove){
         imgRemove.remove()
-        console.log('oui')
     }
     let num = 'etage'+numeroEtage
-    console.log(num)
     let etagenumber = etageObj["etage" + numeroEtage]
     insertImage.innerHTML = etagenumber.img
     insertImage.innerHTML += etagenumber.map

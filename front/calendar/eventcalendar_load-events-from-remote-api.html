@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <script>
+        // Ignore this in your implementation
+        window.isMbscDemo = true;
+    </script>
+
+    <title>Events from remote API </title>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link rel="stylesheet" href="css/mobiscroll.javascript.min.css">
+    <script src="js/mobiscroll.javascript.min.js"></script>
+
+    <style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    body,
+    html {
+        height: 100%;
+    }
+
+    </style>
+
+</head>
+<body>
+
+<div mbsc-page class="demo-load-events-from-remote-api">
+  <div style="height:100%">
+      <div id="demo-remote-api" style="height:100%;"></div>
+  </div>
+</div>
+
+<script>
+    mobiscroll.setOptions({
+        theme: 'ios',
+        locale: mobiscroll.localeFr
+    });
+
+    var inst = mobiscroll.eventcalendar('#demo-remote-api', {
+        locale: mobiscroll.localeFr,  // Specify language like: locale: mobiscroll.localePl or omit setting to use default
+        theme: 'ios',                 // Specify theme like: theme: 'ios' or omit setting to use default
+        themeVariant: 'light',        // More info about themeVariant: https://docs.mobiscroll.com/5-13-3/javascript/eventcalendar#opt-themeVariant
+        view: {                       // More info about view: https://docs.mobiscroll.com/5-13-3/javascript/eventcalendar#opt-view
+            calendar: {
+                labels: true          // More info about labels: https://docs.mobiscroll.com/5-13-3/javascript/eventcalendar#opt-labels
+            }
+        }
+    });
+    
+    mobiscroll.util.http.getJson('https://trial.mobiscroll.com/events/?vers=5', function (events) {
+        inst.setEvents(events);
+    }, 'jsonp');
+</script>
+
+</body>
+</html>
