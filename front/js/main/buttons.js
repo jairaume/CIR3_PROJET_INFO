@@ -3,18 +3,11 @@ let disconnectbtn = document.getElementById("disconnectBtn")
 let s = true;
 $('#calendarContainer').hide();
 
-
-
-disconnectbtn.addEventListener('click',()=>{
-    console.log("Je veux me pendre !")
-    socket.emit('leave');
-    window.location.reload();
-})
-
 switchBtn.addEventListener('click',()=>{
     if(s){
         $('#container').hide();
         $('#calendarContainer').show();
+        $('#demo-remote-api').css('visibility','visible');
     }
     else{
         $('#container').show();

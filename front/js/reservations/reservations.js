@@ -7,6 +7,14 @@ let currentDate = new Date();
 socket.emit("askReservations");
 
 socket.on("getReservations", (reservations) => {
+
+    if (reservations.length == 0) {
+        past.innerHTML = "Vous n'avez pas de réservation";
+        past.style.display = "block";
+        past.style.textAlign = "center";
+        return;
+    }
+
     reservations = reservations.sort((a, b) => {
         let aheures = a.horraire.split("h")[0];
         let aminutes = a.horraire.split("h")[1].split("-")[0];

@@ -23,6 +23,7 @@ header > h1 {
 
 header > #profile > p {
     width: 70px;
+    text-align: left;
 } 
 
 header > #profile {
