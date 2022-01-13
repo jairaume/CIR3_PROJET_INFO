@@ -227,3 +227,10 @@ document.getElementById("creneaux").addEventListener("change",event=>{
     let newEtage = document.getElementById("etages").value;
     socket.emit('roomCaracteristiques')
 })
+
+document.getElementById("calendrier").addEventListener("change",event=>{
+    reservDB.date = document.getElementById("calendrier").value
+ 
+     console.log("Creneau à affiché : ",document.getElementById("calendrier").value)
+     socket.emit('roomCaracteristiques')
+ })
