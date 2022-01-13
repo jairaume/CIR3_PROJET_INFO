@@ -95,7 +95,15 @@ let salleSettings=(salleEtage)=>{
                 $('#'+s.room).data('maphilight', s.reserve?occupied:free).trigger('alwaysOn.maphilight');
             };
             $('#'+salle.room).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
-            reservDB.salle=currentRoom
+            if(!salle.reserve){
+                selected = true;
+                reservDB.salle = currentRoom
+                console.log(currentRoom)
+            }
+            else{
+                selected = false;
+                reservDB.salle = ""
+            }
         })
     }
 }
@@ -193,15 +201,20 @@ function initRoomInfos(infosSalles,salleEtage){
             })
             .click(function(e) { 
                 e.preventDefault(); 
-                
-                selected = true;
+                if(!sa.reserve){
+                    selected = true;
+                    reservDB.salle = currentRoom
+                    console.log(currentRoom)
+                }
+                else{
+                    selected = false;
+                    reservDB.salle = "";
+                }
                 currentRoom=sa.room
                 console.log("You selected the room "+currentRoom+" !")
-                reservDB.salle = currentRoom
                 
                 selectRoom(sa.room,salleEtage)
                 $(this).addClass('selected')
-                reservDB.salle = currentRoom
             });
         }
     };

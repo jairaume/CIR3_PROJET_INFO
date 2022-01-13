@@ -8,6 +8,7 @@ disconnectbtn.addEventListener('click',()=>{
     window.location.reload();
 })*/
 
+
 let reservDB = {
     salle:String,
     annee: Number,
@@ -207,7 +208,9 @@ document.getElementById("reservation").addEventListener("click",event=>{
         }
     })
 })
-
+socket.on('reservationCreated',()=>{
+    socket.emit('roomCaracteristiques')
+})
 
 // Interaction avec le bouton "etages"
 document.getElementById("etages").addEventListener("change",event=>{
