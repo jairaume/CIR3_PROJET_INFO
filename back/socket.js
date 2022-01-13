@@ -1,3 +1,5 @@
+const Salles = require("./models/salles");
+
 module.exports = function (http, session, db) {
     const io = require("socket.io")(http);
     const sharedsession = require("express-socket.io-session");
@@ -60,17 +62,46 @@ module.exports = function (http, session, db) {
             // L'utilisateur ferme la page
         });
 
+        socket.on("askSallesInformations", async (floor, annee, mois, jour, horraire) => {
+            let currentSalles = JSON.parse(JSON.stringify(Salles.filter((salle) => salle.floor == floor)));
+            let request = { $or: [] };
+            for (const salle of currentSalles) {
+                request.$or.push({ salle: salle.room, annee: annee, mois: mois, jour: jour, horraire: horraire });
+            }
+            let reservations = await db.getReservations(request);
+            currentSalles.map((salle) => {
+                if (reservations.find((s) => s.salle == salle.room)) {
+                    salle.reserve = true;
+                } else {
+                    salle.reserve = false;
+                }
+                delete salle.size;
+                delete salle.seats;
+                delete salle.floor;
+            });
+            console.log(currentSalles);
+            socket.emit("getSallesInformations", currentSalles);
+        });
+
         socket.on("leave", () => {
             console.log("L'utilisateur \"" + socket.handshake.session.email + "\" s'est deconnecté !");
             delete socket.handshake.session.email;
             socket.handshake.session.save();
         });
-        socket.on("askIsConnected",()=>{
-            socket.emit("respondIsConnected",socket.handshake.session.email)
-          })
-      
-        socket.on("reservation",reservation=>{
-        console.log(`Une reservation a été faite :
+
+        socket.on("getEvents", () => {
+            db.getEvents().then(response => {
+                socket.emit("respondEvents", response);
+            })
+        });
+
+        socket.on("askIsConnected", () => {
+            console.log("isConnected, email : ", socket.handshake.session.email);
+            socket.emit("respondIsConnected", socket.handshake.session.email);
+        });
+
+        socket.on("reservation", (reservation) => {
+            console.log(`Une reservation a été faite :
             salle : ${reservation.salle}
             jour : ${reservation.jour}
             mois : ${reservation.mois}

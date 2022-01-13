@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Salles = require("./models/salles.js");
 
-mongoose.connect("mongodb://152.228.171.235:27017/projet", {
+mongoose.connect("mongodb://152.228.171.235:14878/projet", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -74,7 +74,7 @@ module.exports = {
             let end = annee + "-" + mois + "-" + jour + "T" + endHeure + ":" + endMinutes + ":00";
             return {
                 id: reservation.salle,
-                resourceId: reservation.salle,
+                resource: reservation.salle,
                 start: start,
                 end: end,
                 title: reservation.prenom + " " + reservation.nom,
