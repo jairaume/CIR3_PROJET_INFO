@@ -36,7 +36,6 @@ function createRoomAreas(){
         mapEtage8.appendChild(tmpArea)
 
     });
-    console.log("areas created !")
 }
 
 
@@ -190,7 +189,6 @@ function selectRoom(room){
 
 function initRoomInfos(infosSalles){
     let modalContainer = document.getElementById('modalContainer')
-    console.log(infosSalles)
 
     for (const sa of infosSalles) {
         addDiv(sa);
