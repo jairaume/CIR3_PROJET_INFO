@@ -11,21 +11,28 @@ module.exports = function (http, session, db) {
 
     io.on("connection", (socket) => {
         socket.on("createReservation", ({ salle, annee, mois, jour, horraire }) => {
-            db.createReservation({
-                salle: salle,
-                annee: annee,
-                mois: mois,
-                jour: jour,
-                horraire: horraire,
-                prenom: socket.handshake.session.prenom,
-                nom: socket.handshake.session.nom,
-            })
-                .then((reservation) => {
-                    socket.broadcast.emit("reservationCreated", reservation);
-                })
-                .catch((err) => {
-                    socket.emit("reservationError", err);
+            console.log(salle, annee, mois, jour, horraire);
+            if (salle && annee && mois && jour && horraire) {
+                db.getReservations({ salle, annee, mois, jour, horraire }).then((reservations) => {
+                    if (reservations.length == 0) {
+                        db.createReservation({
+                            salle: salle,
+                            annee: annee,
+                            mois: mois,
+                            jour: jour,
+                            horraire: horraire,
+                            prenom: socket.handshake.session.prenom,
+                            nom: socket.handshake.session.nom,
+                        })
+                            .then((reservation) => {
+                                io.emit("reservationCreated", reservation);
+                            })
+                            .catch((err) => {
+                                socket.emit("reservationError", err);
+                            });
+                    }
                 });
+            }
         });
 
         socket.on("cancelReservation", (reservation) => {
@@ -67,27 +74,6 @@ module.exports = function (http, session, db) {
             // L'utilisateur ferme la page
         });
 
-        socket.on("askSallesInformations", async (floor, annee, mois, jour, horraire) => {
-            let currentSalles = JSON.parse(JSON.stringify(Salles.filter((salle) => salle.floor == floor)));
-            let request = { $or: [] };
-            for (const salle of currentSalles) {
-                request.$or.push({ salle: salle.room, annee: annee, mois: mois, jour: jour, horraire: horraire });
-            }
-            let reservations = await db.getReservations(request);
-            currentSalles.map((salle) => {
-                if (reservations.find((s) => s.salle == salle.room)) {
-                    salle.reserve = true;
-                } else {
-                    salle.reserve = false;
-                }
-                delete salle.size;
-                delete salle.seats;
-                delete salle.floor;
-            });
-            console.log(currentSalles);
-            socket.emit("getSallesInformations", currentSalles);
-        });
-
         socket.on("leave", () => {
             console.log("L'utilisateur \"" + socket.handshake.session.email + "\" s'est deconnecté !");
             delete socket.handshake.session.email;
@@ -125,7 +111,7 @@ module.exports = function (http, session, db) {
             if (socket.handshake.session.admin) {
                 socket.emit("getToken", md5(socket.handshake.session.email + socket.handshake.session.password));
             }
-        })
+        });
 
         socket.on("askSallesInformations", async (floor, annee, mois, jour, horraire) => {
             let currentSalles = JSON.parse(JSON.stringify(Salles.filter((salle) => salle.floor == floor)));
@@ -144,8 +130,7 @@ module.exports = function (http, session, db) {
                 delete salle.seats;
                 //delete salle.floor;
             });
-            console.log(currentSalles);
-            socket.emit("getSallesInformations", (currentSalles));
+            socket.emit("getSallesInformations", currentSalles);
         });
     });
 
