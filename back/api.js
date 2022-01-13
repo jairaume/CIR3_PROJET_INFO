@@ -9,7 +9,7 @@ module.exports = function (app, session, db) {
     });
 
     app.get("/api/get/users", (req, res) => {
-        db.getUsers(req.query).then((users) => {
+        db.getUsers(req.query, "-_id -__v -password").then((users) => {
             res.json(users);
         });
     });
