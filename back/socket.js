@@ -39,6 +39,7 @@ module.exports = function (http, session, db) {
             db.cancelReservation(reservation)
                 .then((reservation) => {
                     socket.emit("reservationCanceled", reservation);
+                    io.emit("reservationCreated")
                 })
                 .catch((err) => {
                     socket.emit("reservationError", err);
