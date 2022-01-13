@@ -35,34 +35,96 @@ html {
     background-color: $white;
     color: $black;
 }
+#flexbox{
+    display:flex;
+    flex-flow:row-wrap;
+}
+
+.button {
+    background-color: lighten($black,10) ;
+    color:white;
+    border-radius:.3rem;
+    box-shadow : 0px 0px 0px .3rem $white;
+    width:15%;
+    transition-duration: .2s;
+    padding:.3rem .5rem;
+    margin:.5rem;
+    border:none;
+    &:hover{
+        background-color: $black;
+        transition-duration: .2s;
+        cursor:pointer;
+        box-shadow : 0px 0px 0px .3rem darken($white,30);
+    }
+    &:active{
+        background:darken($black,10);
+    }
+    & i {
+        padding:0 .5rem;
+    }
+}
 
 #container{
     display:flex;
     flex-flow: row-wrap;
+    width:100%;
 }
-
 #mapContainer{
     margin:1rem;
     background-color: darken($white,10);
     padding:1rem;
+    border-radius:.3rem;
 }
-
 #modalContainer{
     background-color: darken($white,10);
-    padding:1rem;
-    margin:1rem;
-    width:100%;
+    overflow: auto;
+    height:100vh;
+    margin:1rem .5rem;
+    width:30vw;
+    border-radius:.3rem;
+}
 
-    & h3{
-        margin:0;
+.salleList{
+    background:darken($white,5);
+    margin:.6rem .6rem;
+    padding:.3rem;
+    border-radius:.5rem;
+
+    & .infos{
+        display:flex;
+        flex-flow:row-wrap;
+        & p{
+            background:$white;
+            border-radius:.3rem;
+            margin:.3rem;
+            padding:.3rem;
+            width:50%;
+        }
+        & i{
+            margin:0 .3rem;
+        }
     }
+    & h3{
+        border-radius:1rem;
+        border:.3rem solid $black;
+        margin:.3rem;
+        background: $white;
+    }
+
+    &:hover{
+        background:darken($white,30);
+        cursor:pointer;
+    }
+    &:active, &.selected{
+        background:$blue;
+        box-shadow : 0px 0px 0px .3rem darken($white,30);
+        transition-duration: .3s;
+    }
+
 }
 
 
-.salleName{
-    color:black;
-    z-index: 99999;
-  }
+
   
   map {
     z-index: 0;

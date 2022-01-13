@@ -17,30 +17,91 @@ html {
   color: #383838;
 }
 
+#flexbox {
+  display: flex;
+  flex-flow: row-wrap;
+}
+
+.button {
+  background-color: #525252;
+  color: white;
+  border-radius: 0.3rem;
+  box-shadow: 0px 0px 0px 0.3rem #f9f9f9;
+  width: 15%;
+  transition-duration: 0.2s;
+  padding: 0.3rem 0.5rem;
+  margin: 0.5rem;
+  border: none;
+}
+.button:hover {
+  background-color: #383838;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 0.3rem #adadad;
+}
+.button:active {
+  background: #1f1f1f;
+}
+.button i {
+  padding: 0 0.5rem;
+}
+
 #container {
   display: flex;
   flex-flow: row-wrap;
+  width: 100%;
 }
 
 #mapContainer {
   margin: 1rem;
   background-color: #e0e0e0;
   padding: 1rem;
+  border-radius: 0.3rem;
 }
 
 #modalContainer {
   background-color: #e0e0e0;
-  padding: 1rem;
-  margin: 1rem;
-  width: 100%;
-}
-#modalContainer h3 {
-  margin: 0;
+  overflow: auto;
+  height: 100vh;
+  margin: 1rem 0.5rem;
+  width: 30vw;
+  border-radius: 0.3rem;
 }
 
-.salleName {
-  color: black;
-  z-index: 99999;
+.salleList {
+  background: #ececec;
+  margin: 0.6rem 0.6rem;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+}
+.salleList .infos {
+  display: flex;
+  flex-flow: row-wrap;
+}
+.salleList .infos p {
+  background: #f9f9f9;
+  border-radius: 0.3rem;
+  margin: 0.3rem;
+  padding: 0.3rem;
+  width: 50%;
+}
+.salleList .infos i {
+  margin: 0 0.3rem;
+}
+.salleList h3 {
+  border-radius: 1rem;
+  border: 0.3rem solid #383838;
+  margin: 0.3rem;
+  background: #f9f9f9;
+}
+.salleList:hover {
+  background: #adadad;
+  cursor: pointer;
+}
+.salleList:active, .salleList.selected {
+  background: #4f8be4;
+  box-shadow: 0px 0px 0px 0.3rem #adadad;
+  transition-duration: 0.3s;
 }
 
 map {

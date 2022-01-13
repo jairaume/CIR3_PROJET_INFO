@@ -27,10 +27,12 @@ etageObj = {
         map : "<map name='etage8' id='etage8'> </map>"    
     }
 }
+let numEtage = 0
 
 
 let refresh = (numeroEtage)=>{
     //updateAvailability();
+    numEtage = numeroEtage;
     $(document).ready(function () {
         let data={};
         $('.map').maphilight({alwaysOn:true});

@@ -1,8 +1,4 @@
-
-
- // --------------------------- Affichage reservation et interactions ---------------------------
-
-//const socket = require("../../../back/socket")
+// --------------------------- Affichage reservation et interactions ---------------------------
 
 /*const socket = require("../../../back/socket");
 
@@ -14,11 +10,11 @@ disconnectbtn.addEventListener('click',()=>{
 })*/
 
 let reservDB = {
-    salle:undefined,
-    annee: undefined,
-    mois: undefined,
-    jour: undefined,
-    horraire: undefined,
+    salle:String,
+    annee: Number,
+    mois: Number,
+    jour: Number,
+    horraire: String,
 }
 
 let time = new Date()
@@ -83,9 +79,8 @@ for(creneau of creneaux){ // On passe dans les 4 différents créneaux du tablea
 // Input des différents étages
 let option2
 for(etage of etages){ // On passe dans les 4 différents créneaux du tableau "créneaux"
-    if(etage==8) option2+="<option selected>"
-    else option2+= "<option>"
-    option2 += etage+"</option>"
+    let valeur = etage
+    option2 += "<option>"+valeur+"</option>"
 }
 
 let dateTextDiv = "<div id='dateText'>"+dateText+"</div>"
@@ -176,49 +171,30 @@ calendrier.addEventListener("change",event=>{
 
     // Actualise l'affichage de la date de reservation
     dateDiv.textContent=dateFinale
-
-    // Recuperer les salles qui sont disponibles ou non pour l'étage selectionnée
-    //console.log("Etage actuel : ",document.getElementById("etages").value)
 })
 
 // Interaction avec le bouton "Reserver cette salle"
 document.getElementById("reservation").addEventListener("click",event=>{
     event.preventDefault()
-    
     let problems = {salle:false,jour:false,mois:false,annee:false,horraire:false}
-    
-    socket.emit("askIsConnected")
-
-    socket.once("respondIsConnected", isConnected => {
-        if(isConnected){
-            // Vérification de la validité de chaque élément envoyé à la DB
-            if(reservDB.salle==undefined) problems.salle=true
-            if(reservDB.jour==undefined) problems.jour=true
-            if(reservDB.mois==undefined) problems.mois=true
-            if(reservDB.annee==undefined) problems.annee=true
-            if(reservDB.horraire==undefined) problems.horraire=true
-    
-            if(problems.salle) alert("Veuillez indiquer une salle à réserver.")
-            else if(problems.jour) alert("Veuillez indiquer un jour à réserver.")
-            else if(problems.mois) alert("Veuillez indiquer un mois à réserver.")
-            else if(problems.annee) alert("Veuillez indiquer une année à réserver.")
-            else if(problems.horraire) alert("Veuillez indiquer un horraire à réserver.")
-            else {
-                socket.emit("reservation",reservDB) // Affiche dans la console de la DB la reservation
-                socket.emit("createReservation",reservDB)
-                alert("Réservation correctement effectuée !")// Envoyer au serveur la reservation
-            }
-
-        }else alert("Veuillez vous connecter avant de faire une reservation.")
+    let isConnected
+    socket.on("respondIsConnected", respondIsConnected => {
+        isConnected=respondIsConnected
     })
 
-})
+    // Vérification de la validté de chaque élément envoyé à la DB
+    if(!reservDB.salle.value) problems.salle=true
+    if(!reservDB.jour.value) problems.jour=true
+    if(!reservDB.mois.value) problems.mois=true
+    if(!reservDB.annee.value) problems.annee=true
+    if(!reservDB.horraire.value) problems.horraire=true
 
-refresh(8)
-// Interaction avec le bouton "etages"
-document.getElementById("etages").addEventListener("change",event=>{
-    console.log("Etage à affiché : ",document.getElementById("etages").value)
-    let newEtage = document.getElementById("etages").value;
-    refresh(newEtage)
 
+    if(problems.salle) alert("Veuillez indiquer une salle à réserver.")
+    else if(problems.jour) alert("Veuillez indiquer un jour à réserver.")
+    else if(problems.mois) alert("Veuillez indiquer un mois à réserver.")
+    else if(problems.annee) alert("Veuillez indiquer une année à réserver.")
+    else if(problems.horraire) alert("Veuillez indiquer un horraire à réserver.")
+    else if(!isConnected) alert("Veuillez vous connecter avant de faire une reservation.")
+    else socket.on("reservation",reservDB)
 })

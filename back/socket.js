@@ -2,7 +2,7 @@ module.exports = function (http, session, db) {
     const io = require("socket.io")(http);
     const sharedsession = require("express-socket.io-session");
     const { body, validationResult } = require("express-validator");
-
+    const Salles = require('./models/salles')
     //config session
     io.use(sharedsession(session, { autoSave: true }));
 
@@ -47,16 +47,13 @@ module.exports = function (http, session, db) {
                 });
         });
 
-        socket.on("askName", () => {
-            socket.emit("getName", socket.handshake.session.prenom);
-        });
-
         socket.on("isRoomAvailable", (roomNumber) => {
             // Renvoyer un boléen
         });
 
         socket.on("roomCaracteristiques", (roomNumber) => {
             // Obtenir puis envoyer au front les différentes caractéristiques de la room demandée
+            socket.emit('roomInfos',Salles)
         });
 
         socket.on("disconnect", () => {
@@ -69,7 +66,6 @@ module.exports = function (http, session, db) {
             socket.handshake.session.save();
         });
         socket.on("askIsConnected",()=>{
-            console.log("isConnected, email : ",socket.handshake.session.email)
             socket.emit("respondIsConnected",socket.handshake.session.email)
           })
       
@@ -80,7 +76,8 @@ module.exports = function (http, session, db) {
             mois : ${reservation.mois}
             annee : ${reservation.annee}
             horraire : ${reservation.horraire}
-            email : ${socket.handshake.session.email}
+            prenom : ${reservation.prenom}
+            nom : ${reservation.nom}
             `)
         })
     });
