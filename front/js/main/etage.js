@@ -30,8 +30,20 @@ etageObj = {
 
 
 let refresh = (numeroEtage)=>{
-    let insertImage = document.getElementById('mapContainer')
+    //updateAvailability();
+    $(document).ready(function () {
+        let data={};
+        $('.map').maphilight({alwaysOn:true});
+    });  
 
+
+    let imgRemove = document.getElementById('map')
+    let insertImage = document.getElementById('mapContainer')
+    console.log(insertImage)
+    if(imgRemove){
+        imgRemove.remove()
+        console.log('oui')
+    }
     let num = 'etage'+numeroEtage
     console.log(num)
     let etagenumber = etageObj["etage" + numeroEtage]

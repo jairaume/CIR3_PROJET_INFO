@@ -1,26 +1,3 @@
-let mapEtage8 = document.getElementById("etage8")
-let imgEtage8 = document.getElementById("imgEtage8")
-let salleEtage8 = document.getElementsByClassName("etage8")
-let roomName = document.getElementById("roomName")
-// ATTENTION : balise <p id="roomInfos"> obsolète, voir équipe front concernant le plan
-let roomInfos = document.getElementById("roomInfos")
-roomInfos.style.position = "absolute"
-roomInfos.style.zIndex = "9999"
-
-
-let areasEtage8 = [
-    {shape:'rect', coords:[64,85,152,175], name:"A811", reserve :true},
-    {shape:'rect', coords:[64,175,152,235], name:"A812", reserve :false},
-    {shape:'rect', coords:[64,238,152,295], name:"A813", reserve :false},
-    {shape:'rect', coords:[64,358,151,419], name:"A814", reserve :false},
-    {shape:'rect', coords:[64,419,151,481], name:"A815", reserve :false},
-    {shape:'poly', coords:[64,481, 180,481, 188,547, 64,547], name:"A816", reserve :true},
-    {shape:'poly', coords:[187,476, 234,470, 244,540, 196,545], name:"A817", reserve :true},
-    {shape:'poly', coords:[240,469, 366,455, 375,535, 250,550], name:"A818", reserve :true},
-    {shape:'poly', coords:[372,454, 480,442, 490,522, 381,535], name:"A819", reserve :true},
-    {shape:'poly', coords:[483,442, 567,432, 579,536, 494,545], name:"A820", reserve :true}
-]
-
 function createRoomAreas(numeroEtage,areasEtage){
     areasEtage.forEach(e => {
         let tmpArea = document.createElement('area')
@@ -32,31 +9,27 @@ function createRoomAreas(numeroEtage,areasEtage){
         tmpArea.setAttribute('shape', e.shape)
         tmpArea.setAttribute('coords', e.coords)
         tmpArea.setAttribute('id',e.name)
+        
         document.getElementById("etage"+numeroEtage).appendChild(tmpArea)
 
     });
 
 }
 
-//createRoomAreas(); //fait
 let salleSettings=(salleEtage)=>{
     let selected = "";
     let currentRoom = "";
     for (const salle of salleEtage) {
         let tmpName = salle.name
-        //let tmpId = salle.getAttribute('id')
         let tmpRes = salle.reserve
         document.getElementById(salle.name).addEventListener('mouseover',()=>{
             if(!selected){
                 currentRoom = tmpName;
                 roomName.innerHTML = tmpName
             }
-
-
             console.log('#'+tmpName)
             $('#'+salle.name).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
         });
-
         document.getElementById(salle.name).addEventListener('mouseleave',()=>{
             if((selected && currentRoom!=tmpName) || !selected){
                 $('#'+salle.name).data('maphilight', tmpRes?occupied:free).trigger('alwaysOn.maphilight');
@@ -65,7 +38,6 @@ let salleSettings=(salleEtage)=>{
                 $('#'+salle.getAttribute('name')).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
             }
         })
-
         document.getElementById(salle.name).addEventListener('click',()=>{
             selected = true
             currentRoom = tmpName;
@@ -76,6 +48,18 @@ let salleSettings=(salleEtage)=>{
             reservDB.salle=currentRoom
         })
     }
+}
+
+function updateAvailability(areasEtage){
+    console.log(areasEtage)
+    areasEtage.forEach(e => {
+        if(e.reserve){
+            $('#'+e.name).data('maphilight', occupied).trigger('alwaysOn.maphilight');
+        }
+        else{
+            $('#'+e.name).data('maphilight', free).trigger('alwaysOn.maphilight');
+        }
+    });
 }
 
 let occupied = {
@@ -120,27 +104,3 @@ let occupiedselect = {
     strokeWidth:'2',
     fillOpacity:'0.7'
 }
-
-function updateAvailability(areasEtage){
-    console.log(areasEtage)
-    areasEtage.forEach(e => {
-        if(e.reserve){
-            $('#'+e.name).data('maphilight', occupied).trigger('alwaysOn.maphilight');
-        }
-        else{
-            $('#'+e.name).data('maphilight', free).trigger('alwaysOn.maphilight');
-        }
-    });
-}
-
-function showRoomInfos(room){
-    
-}
-//updateAvailability();
-$(document).ready(function () {
-    let data={};
-    $('.map').maphilight({alwaysOn:true});
-});  
-
-showCoords()
-

@@ -83,8 +83,9 @@ for(creneau of creneaux){ // On passe dans les 4 différents créneaux du tablea
 // Input des différents étages
 let option2
 for(etage of etages){ // On passe dans les 4 différents créneaux du tableau "créneaux"
-    let valeur = etage
-    option2 += "<option>"+valeur+"</option>"
+    if(etage==8) option2+="<option selected>"
+    else option2+= "<option>"
+    option2 += etage+"</option>"
 }
 
 let dateTextDiv = "<div id='dateText'>"+dateText+"</div>"
@@ -213,11 +214,11 @@ document.getElementById("reservation").addEventListener("click",event=>{
 
 })
 
-refresh(8); 
+refresh(8)
 // Interaction avec le bouton "etages"
 document.getElementById("etages").addEventListener("change",event=>{
     console.log("Etage à affiché : ",document.getElementById("etages").value)
     let newEtage = document.getElementById("etages").value;
-
+    refresh(newEtage)
 
 })
