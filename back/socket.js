@@ -34,7 +34,11 @@ module.exports = function (http, session, db) {
                     socket.emit("reservationError", err);
                 });
         });
-
+        socket.on("getEvents", () => {
+            db.getEvents().then(response => {
+                socket.emit("respondEvents", response);
+            })
+        });
         socket.on("askReservations", () => {
             let prenom = socket.handshake.session.prenom;
             let nom = socket.handshake.session.nom;

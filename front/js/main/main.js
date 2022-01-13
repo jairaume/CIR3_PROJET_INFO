@@ -146,7 +146,6 @@ function removeAllSelected(salleEtage){
     updateAvailability(salleEtage);
 }
 function hoverRoom(room,areasEtage){
-    console.log(areasEtage)
     let ind = areasEtage.findIndex((e)=>e.name == room)
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?freehover:occupiedhover).trigger('alwaysOn.maphilight');
@@ -159,7 +158,7 @@ function leaveRoom(room,areasEtage){
     }
 }
 function selectRoom(room,areasEtage){
-    removeAllSelected()
+    removeAllSelected(areasEtage)
     let ind = areasEtage.findIndex((e)=>e.name == room)
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?freeselect:occupiedselect).trigger('alwaysOn.maphilight');
@@ -168,11 +167,12 @@ function selectRoom(room,areasEtage){
 
 function initRoomInfos(infosSalles,salleEtage){
     let modalContainer = document.getElementById('modalContainer')
-    console.log(infosSalles)
+    modalContainer.innerHTML="";
 
+    console.log(infosSalles)
     for (const sa of infosSalles) {
         if(sa.floor == document.getElementById("etages").value){
-
+            console.log("je créée la div pour la " + sa.room)
             addDiv(sa);
             
             $('#'+sa.room+"Infos").mouseover(function(e){
@@ -199,30 +199,3 @@ function initRoomInfos(infosSalles,salleEtage){
     };
 
 }
-
-/*
-var inst = mobiscroll.eventcalendar('#demo-remote-api', {
-    locale: mobiscroll.localeFr,
-    theme: 'ios',
-    themeVariant: 'light',
-    clickToCreate: false,
-    dragToCreate: false,
-    dragToMove: false,
-    dragToResize: false,
-    view: {
-        calendar: {
-            labels: true
-        }
-    }
-});
-mobiscroll.eventcalendar('#demo-remote-api', {
-    view: {
-        timeline: {
-            type: 'day'
-        }
-    }
-})
-mobiscroll.util.http.getJson('https://trial.mobiscroll.com/events/?vers=5', function (events) {
-    inst.setEvents(events);
-}, 'jsonp');
-*/
