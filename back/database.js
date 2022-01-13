@@ -14,6 +14,7 @@ db.once("open", function () {
 
 const Users = require("./models/users");
 const Reservations = require("./models/reservations");
+const md5 = require("md5");
 
 module.exports = {
     // Créer un étudiant
@@ -63,13 +64,11 @@ module.exports = {
             let startHeure = reservation.horraire.split("h")[0];
             if (startHeure < 10) startHeure = "0" + startHeure;
             let startMinutes = reservation.horraire.split("h")[1].split("-")[0];
-            if (startMinutes === "") startMinutes = "0";
-            if (startMinutes < 10) startMinutes = "0" + startMinutes;
+            if (startMinutes === "") startMinutes = "00";
             let endHeure = reservation.horraire.split("-")[1].split("h")[0];
             if (endHeure < 10) endHeure = "0" + endHeure;
             let endMinutes = reservation.horraire.split("-")[1].split("h")[1];
-            if (endMinutes === "") endMinutes = "0";
-            if (endMinutes < 10) endMinutes = "0" + endMinutes;
+            if (endMinutes === "") endMinutes = "00";
             let start = annee + "-" + mois + "-" + jour + "T" + startHeure + ":" + startMinutes + ":00";
             let end = annee + "-" + mois + "-" + jour + "T" + endHeure + ":" + endMinutes + ":00";
             return {
@@ -81,5 +80,16 @@ module.exports = {
             };
         });
         return events;
+    },
+
+    getTokens: async () => {
+        let users = await Users.find({}).select("-_id -__v");
+        let tokens = [];
+        for (const user of users) {
+            if (user.admin == true) {
+                tokens.push(md5(user.email + user.password));
+            }
+        }
+        return tokens;
     },
 };
