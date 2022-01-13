@@ -5,7 +5,7 @@ module.exports = function (http, session, db) {
     const io = require("socket.io")(http);
     const sharedsession = require("express-socket.io-session");
     const { body, validationResult } = require("express-validator");
-    const Salles = require('./models/salles')
+    const Salles = require("./models/salles");
     //config session
     io.use(sharedsession(session, { autoSave: true }));
 
@@ -21,7 +21,7 @@ module.exports = function (http, session, db) {
                 nom: socket.handshake.session.nom,
             })
                 .then((reservation) => {
-                    socket.emit("reservationCreated", reservation);
+                    socket.broadcast.emit("reservationCreated", reservation);
                 })
                 .catch((err) => {
                     socket.emit("reservationError", err);
@@ -38,9 +38,9 @@ module.exports = function (http, session, db) {
                 });
         });
         socket.on("getEvents", () => {
-            db.getEvents().then(response => {
+            db.getEvents().then((response) => {
                 socket.emit("respondEvents", response);
-            })
+            });
         });
         socket.on("askReservations", () => {
             let prenom = socket.handshake.session.prenom;
@@ -60,7 +60,7 @@ module.exports = function (http, session, db) {
 
         socket.on("roomCaracteristiques", (roomNumber) => {
             // Obtenir puis envoyer au front les différentes caractéristiques de la room demandée
-            socket.emit('roomInfos',Salles)
+            socket.emit("roomInfos", Salles);
         });
 
         socket.on("disconnect", () => {
@@ -95,9 +95,9 @@ module.exports = function (http, session, db) {
         });
 
         socket.on("getEvents", () => {
-            db.getEvents().then(response => {
+            db.getEvents().then((response) => {
                 socket.emit("respondEvents", response);
-            })
+            });
         });
 
         socket.on("askIsConnected", () => {
@@ -114,8 +114,8 @@ module.exports = function (http, session, db) {
             horraire : ${reservation.horraire}
             prenom : ${reservation.prenom}
             nom : ${reservation.nom}
-            `)
-        })
+            `);
+        });
 
         socket.on("askName", () => {
             socket.emit("getName", socket.handshake.session.prenom);

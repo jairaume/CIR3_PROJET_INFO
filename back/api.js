@@ -1,6 +1,12 @@
 const Salles = require("./models/salles.js");
 
 module.exports = function (app, session, db) {
+    app.get("/api/get/reservations", (req, res) => {
+        db.getReservations({}).then((reservations) => {
+            res.json(reservations);
+        });
+    });
+
     app.get("/api/get/reservations/:salle", (req, res) => {
         const salle = req.params.salle;
         db.getReservations({ salle }).then((reservations) => {
