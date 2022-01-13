@@ -39,7 +39,7 @@ let creneaux = [
 ]
 let creneauxNbr = creneaux.length+1
 
-let etages = [-1,0,2,4,6,8,9]
+let etages = [0,1,2,3,4]
 
 /* ------------- Creneau actuel --------------- */
 //let body = document.getElementsByTagName("body")[0]
@@ -112,7 +112,7 @@ reservDB.annee = Number(years)
 
 // Bouton pour afficher le reservDB
 let infoDiv = document.createElement("div")
-let infoButton = '<input type="button" id="infos" value="Infos envoyées à DB">'
+let infoButton = '<button id="infos" class="button"> Infos envoyées à DB</button>'
 infoDiv.innerHTML = infoButton
 
 infoDiv.addEventListener("click",event=>{
@@ -121,7 +121,7 @@ infoDiv.addEventListener("click",event=>{
 })
 
 // Bouton "Envoyer à la DB"
-let boutonDB = '<div><input type="button" id="reservation" value="Reserver cette salle"></div>'
+let boutonDB = '<button id="reservation" class="button">Reserver cette salle</button>'
 reservDiv.innerHTML+=boutonDB
 
 flexbox.appendChild(reservDiv)
@@ -198,3 +198,18 @@ document.getElementById("reservation").addEventListener("click",event=>{
     else if(!isConnected) alert("Veuillez vous connecter avant de faire une reservation.")
     else socket.on("reservation",reservDB)
 })
+
+
+// Interaction avec le bouton "etages"
+document.getElementById("etages").addEventListener("change",event=>{
+    console.log("Etage à affiché : ",document.getElementById("etages").value)
+    let newEtage = document.getElementById("etages").value;
+    //refresh(newEtage)
+    
+    socket.emit('roomCaracteristiques')
+
+
+
+
+})
+

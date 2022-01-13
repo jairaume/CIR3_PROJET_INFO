@@ -1,4 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Hanalei+Fill&family=Noto+Sans&display=swap");
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 *,
 ::before,
 ::after {
@@ -41,15 +55,21 @@ html {
 }
 .button:active {
   background: #1f1f1f;
+  box-shadow: 0px 0px 0px 0.4rem #adadad;
+  transition-duration: 0.1s;
 }
 .button i {
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0 0;
 }
 
 #container {
   display: flex;
   flex-flow: row-wrap;
   width: 100%;
+}
+
+#calendarContainer {
+  margin: 1rem;
 }
 
 #mapContainer {
@@ -73,6 +93,7 @@ html {
   margin: 0.6rem 0.6rem;
   padding: 0.3rem;
   border-radius: 0.5rem;
+  transition-duration: 0.3s;
 }
 .salleList .infos {
   display: flex;
@@ -95,13 +116,26 @@ html {
   background: #f9f9f9;
 }
 .salleList:hover {
-  background: #adadad;
   cursor: pointer;
 }
-.salleList:active, .salleList.selected {
-  background: #4f8be4;
-  box-shadow: 0px 0px 0px 0.3rem #adadad;
+.salleList:active.free, .salleList.selected.free {
+  box-shadow: 0px 0px 0px 0.3rem black;
   transition-duration: 0.3s;
+}
+.salleList.free {
+  background: #41bb78;
+}
+.salleList.free:hover {
+  background: #349560;
+}
+.salleList.occupied {
+  background: #e74c3c;
+}
+.salleList.occupied:hover {
+  background: #d62c1a;
+}
+.salleList.occupied:active, .salleList.occupied.selected {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 map {

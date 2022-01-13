@@ -10,6 +10,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type='text/javascript' src='http://davidlynch.org/projects/maphilight/jquery.maphilight.js'></script>
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>        
+        
+        <link href="../../calendar/css/mobiscroll.javascript.min.css" rel="stylesheet" />
+        <script src="../../calendar/js/mobiscroll.javascript.min.js"></script>
 
     </head>
 
@@ -28,22 +31,22 @@
         <div id="reservationDiv">
 
         </div>
+        <div id="disconnectBtn" class="button"><i class="fas fa-sign-out-alt"></i>Se déconnecter</div>
+        <div id="switchBtn" class="button"><i class="far fa-calendar-alt"></i>Calendrier </div>
+
         
         <div id="container">
             <div id="mapContainer">
 
-                <img id="map" src="https://media.discordapp.net/attachments/783594798627160065/930115217734656040/unknown.png?width=958&height=655" usemap="#etage8" class="map" name='test'>
-                <map name="etage8" id="etage8" >
-                    
-                </map>
             </div>
 
             <div id="modalContainer">
             </div>
 
         </div>
-
-        <div id="demo-remote-api" style="height:100%;"></div>
+        <div id="calendarContainer">
+            <div id="demo-remote-api" style="height:100%;"></div>
+        </div>
 
         </div>
 
@@ -60,6 +63,9 @@
     </script>
     <script src="../js/main/main.js"></script>
     <script src="../js/main/roomInfos.js"></script>
+    <script src="../js/main/buttons.js" ></script>
+    <script src="../js/main/etage.js" ></script>
     <script src="../js/main/plan.js" ></script>
-    <script src="../js/main/header.js" ></script>
+    <script src="../js/main/calendrier.js"></script>
+    
 </html>
