@@ -71,7 +71,6 @@ let salleSettings=(salleEtage)=>{
         document.getElementById(salle.name).addEventListener('mouseover',()=>{
             if(!selected){
                 currentRoom = tmpName;
-                roomName.innerHTML = tmpName
             }
             console.log('#'+tmpName)
             $('#'+salle.name).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
@@ -101,6 +100,7 @@ let salleSettings=(salleEtage)=>{
 
 
 function updateAvailability(areasEtage){
+    console.log(areasEtage)
     areasEtage.forEach(e => {
         if(e.reserve){
             $('#'+e.name).data('maphilight', occupied).trigger('alwaysOn.maphilight');
@@ -143,7 +143,7 @@ function removeAllSelected(salleEtage){
     for (const s of salleEtage) {   
         $('#'+s.name).data('maphilight', s.reserve?occupied:free).trigger('alwaysOn.maphilight');
     };
-    updateAvailability();
+    updateAvailability(salleEtage);
 }
 function hoverRoom(room,areasEtage){
     console.log(areasEtage)
@@ -171,7 +171,6 @@ function initRoomInfos(infosSalles,salleEtage){
     console.log(infosSalles)
 
     for (const sa of infosSalles) {
-        console.log(sa.floor + " et " + document.getElementById("etages").value)
         if(sa.floor == document.getElementById("etages").value){
 
             addDiv(sa);
