@@ -66,6 +66,21 @@ h1 {
     opacity: 1;
 }
 
+#token {
+    margin: auto;
+    text-align: center;
+}
+
+.spoiler {
+    filter: blur(3px);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.spoiler.spoiler-active {
+    filter: blur(0px);
+}
+
 @media screen and (max-width: 750px) {
     #past, #future {
         grid-template-columns: repeat(3, 1fr);

@@ -1,3 +1,4 @@
+const md5 = require("md5");
 const Salles = require("./models/salles");
 
 module.exports = function (http, session, db) {
@@ -115,6 +116,12 @@ module.exports = function (http, session, db) {
         socket.on("askName", () => {
             socket.emit("getName", socket.handshake.session.prenom);
         });
+
+        socket.on("askToken", () => {
+            if (socket.handshake.session.admin) {
+                socket.emit("getToken", md5(socket.handshake.session.email + socket.handshake.session.password));
+            }
+        })
     });
 
     // Fonctions utilisables dans "./routes.js"

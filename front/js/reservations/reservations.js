@@ -7,7 +7,6 @@ let currentDate = new Date();
 socket.emit("askReservations");
 
 socket.on("getReservations", (reservations) => {
-
     reservations = reservations.sort((a, b) => {
         let aheures = a.horraire.split("h")[0];
         let aminutes = a.horraire.split("h")[1].split("-")[0];
@@ -53,7 +52,19 @@ socket.on("getReservations", (reservations) => {
             });
             card.appendChild(button);
             future.appendChild(card);
-
         }
+    });
+});
+
+socket.emit("askToken");
+
+socket.on("getToken", (token) => {
+    document.getElementById("token").innerHTML =
+        'Token admin (gardez cette information secrète !) : <br/><span class="spoiler">' + token + "</span>";
+
+    document.querySelectorAll(".spoiler").forEach((spoiler) => {
+        spoiler.addEventListener("click", () => {
+            spoiler.classList.toggle("spoiler-active");
+        });
     });
 });
