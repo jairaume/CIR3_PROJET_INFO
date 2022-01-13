@@ -46,20 +46,13 @@ let etages = [0,1,2,3,4]
 let reservationDiv = document.getElementById("reservationDiv")
 let div = document.createElement("div")
 
-/* ------------- Balise d'annonce de la "reservation" --------------- */
-let reservationText = document.createElement("p")
-reservationText.textContent="Reservation"
-reservationText.id="reserv"
-reservationDiv.appendChild(reservationText)
 
-/* ------------- Flexbox de la reservation et du calendrier--------------- */
-let flexbox = document.createElement("div")
-flexbox.id="flexbox"
 
 /* ------------- Balise de la reservation --------------- */
 
 // Date du jour affichée
 let reservDiv = document.createElement("div")
+reservDiv.classList.add('flexbox')
 let dateText = `${days[dayNumberOfWeek-1]} ${dayNumberOfMonth} ${months[month]} ${years}`;
 
 // Input des différents créneaux
@@ -88,15 +81,16 @@ for(etage of etages){ // On passe dans les 4 différents créneaux du tableau "c
     option2 += "<option>"+valeur+"</option>"
 }
 
-let dateTextDiv = "<div id='dateText'>"+dateText+"</div>"
-let creneauDiv = "<div>Creneau : <select id='creneaux'>"+option+"</select></div>"
-let etageDiv = "<div>Etage : <select id='etages'>"+option2+"</select></div>"
+let dateTextDiv = "<div id='dateText' class='flexbox'>"+dateText+"</div>"
+let creneauDiv = "<div class='flexbox'><p>Creneau :</p> <select id='creneaux'>"+option+"</select></div>"
+let etageDiv = "<div class='flexbox'><p>Etage : </p><select id='etages'>"+option2+"</select></div>"
 
 reservDiv.innerHTML= dateTextDiv+creneauDiv+etageDiv
 
 /* ------------- Balise du calendrier --------------- */
 let calendrierDiv = document.createElement("div")
-calendrierDiv.innerHTML="Date de la reservation : <br>"
+calendrierDiv.classList.add('flexbox')
+calendrierDiv.innerHTML="<div class='flexbox'><p>Date de la reservation :</p></div>"
 
 let calendrier = document.createElement("input")
 calendrier.type="date"
@@ -129,11 +123,10 @@ infoDiv.addEventListener("click",event=>{
 let boutonDB = '<button id="reservation" class="button">Reserver cette salle</button>'
 reservDiv.innerHTML+=boutonDB
 
-flexbox.appendChild(reservDiv)
-flexbox.appendChild(calendrierDiv)
-reservationDiv.appendChild(flexbox)
+reservationDiv.appendChild(reservDiv)
+reservationDiv.appendChild(calendrierDiv)
 
-reservationDiv.appendChild(infoDiv) // a suppr
+//reservationDiv.appendChild(infoDiv) // a suppr
 
 /* ------------- Actualisation des champs lors d'interactions --------------- */
 
@@ -202,7 +195,7 @@ document.getElementById("reservation").addEventListener("click",event=>{
         else if(problems.horraire) alert("Veuillez indiquer un horraire à réserver.")
         else if(!isConnected) alert("Veuillez vous connecter avant de faire une reservation.")
         else {
-            alert("Réussi")
+            launchConfetti();
             socket.emit("createReservation",reservDB)
             socket.emit('roomCaracteristiques')
         }
@@ -234,3 +227,10 @@ document.getElementById("calendrier").addEventListener("change",event=>{
      console.log("Creneau à affiché : ",document.getElementById("calendrier").value)
      socket.emit('roomCaracteristiques')
  })
+
+function launchConfetti(){
+    startConfetti();    
+    setTimeout(()=>{
+        stopConfetti();
+    },3000)
+}

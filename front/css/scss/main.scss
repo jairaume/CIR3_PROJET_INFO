@@ -54,9 +54,22 @@ html {
     color: $black;
 }
 
-#flexbox{
+#flexbox, .flexbox, .reservationDiv{
     display:flex;
     flex-flow:row-wrap;
+    margin:1rem;
+    border-radius: .3rem;
+    background:darken($white,10);
+}
+#reservationDiv{
+    display:flex;
+    flex-flow:row-wrap;
+    font-size: 1.5rem;
+    & input, select{
+        margin:0 1rem;
+
+        border-radius: .5rem;
+    }
 }
 
 .button {

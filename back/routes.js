@@ -24,7 +24,7 @@ module.exports = function (express, app, http) {
     app.get("/", (req, res) => {
         if (!req.session.email) {
             // Utilisateur non connecté
-            res.sendFile(path.join(__dirname, "../front/html/plan.html"));
+            res.sendFile(path.join(__dirname, "../front/html/login.html"));
         } else {
             // Utilisateur connecté
             res.sendFile(path.join(__dirname, "../front/html/plan.html"));
