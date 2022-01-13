@@ -16,4 +16,5 @@ switchBtn.addEventListener('click',()=>{
     s = s?false:true;
 
     switchBtn.innerHTML = s ? '<i class="far fa-calendar-alt"></i>Calendrier' : '<i class="far fa-map"></i>Plan' ;
+    socket.emit('getEvents')
 })

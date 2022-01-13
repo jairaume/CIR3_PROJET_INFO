@@ -65,16 +65,21 @@ let dateText = `${days[dayNumberOfWeek-1]} ${dayNumberOfMonth} ${months[month]} 
 let option
 for(creneau of creneaux){ // On passe dans les 4 différents créneaux du tableau "créneaux"
     let valeurs = `${creneau[0].hour}h${creneau[0].min}-${creneau[1].hour}h${creneau[1].min}` // Différentes valeurs du créneau actuel
-
-    if(creneau[0].hour <= hours && creneau[1].hour > hours){ // Si l'heure min du créneau <= à l'heure actuelle et l'heure max > à l'heure actuelle
+    if(creneau == creneaux.at(0) && (hours<creneaux.at(0)[0].hour||hours==creneaux.at(0)[0].hour && mins<creneaux.at(0)[0].min)){
+        option += "<option selected>" // On selectionne par défaut ce créneau
+        reservDB.horraire=valeurs
+    }else if(creneau == creneaux.at(creneaux.length-1) && (hours>creneaux.at(creneaux.length-1)[1].hour||hours==creneaux.at(creneaux.length-1)[1].hour && mins>creneaux.at(creneaux.length-1)[1].min)){
+        option += "<option selected>" // On selectionne par défaut ce créneau
+        reservDB.horraire=valeurs
+    }else if(creneau[0].hour <= hours && creneau[1].hour > hours){ // Si l'heure min du créneau <= à l'heure actuelle et l'heure max > à l'heure actuelle
         option += "<option selected>" // On selectionne par défaut ce créneau
         reservDB.horraire = valeurs
     }else{
         option += "<option>"
     }
+
     option += valeurs + "</option>"
 }
-
 // Input des différents étages
 let option2
 for(etage of etages){ // On passe dans les 4 différents créneaux du tableau "créneaux"
@@ -131,6 +136,7 @@ reservationDiv.appendChild(infoDiv) // a suppr
 
 /* ------------- Actualisation des champs lors d'interactions --------------- */
 
+reservDB.horraire = document.getElementById('creneaux').value
 
 // Actualisation de la valeur "horraire" qui sera envoyée à la DB
 document.getElementById("creneaux").addEventListener("change",event=>{
@@ -212,7 +218,9 @@ document.getElementById("etages").addEventListener("change",event=>{
 
 // Interaction avec le bouton "creneau"
 document.getElementById("creneaux").addEventListener("change",event=>{
-    console.log("Crenau à affiché : ",document.getElementById("cren").value)
+   reservDB.horraire = document.getElementById("creneaux").value
+
+    console.log("Creneau à affiché : ",document.getElementById("creneaux").value)
     let newEtage = document.getElementById("etages").value;
     socket.emit('roomCaracteristiques')
 })
