@@ -6,9 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="/socket.io/socket.io.js"></script>
         <link rel="stylesheet" href="../css/css/reservations.css" />
+        <link rel="stylesheet" href="../css/css/header.css" />
     </head>
 
     <body>
+        <header>
+            <h1 id="title">Plan'isen</h1>
+
+            <div id="profile">
+                <img id="pp" src="../images/account.svg" alt="">
+                <p id="name"></p>
+                <img id="logout" src="../images/logout.svg" alt="">
+            </div>
+
+        </header>
         <h1>Mes réservations</h1>
         <div id="container">
             <div id="future"></div>
@@ -16,4 +27,5 @@
         </div>
     </body>
     <script src="../js/reservations/reservations.js"></script>
+    <script src="../js/main/header.js"></script>
 </html>

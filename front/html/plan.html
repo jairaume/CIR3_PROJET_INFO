@@ -6,6 +6,7 @@
         <script src="/socket.io/socket.io.js"></script>
         <link rel="stylesheet" href="../css/css/main.css">
         <link rel="stylesheet" href="../css/css/plan.css">
+        <link rel="stylesheet" href="../css/css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type='text/javascript' src='http://davidlynch.org/projects/maphilight/jquery.maphilight.js'></script>
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>        
@@ -15,11 +16,20 @@
     </head>
 
     <body>        
-        
+        <header>
+            <h1 id="title">Plan'isen</h1>
+
+            <div id="profile">
+                <img id="pp" src="../images/account.svg" alt="">
+                <p id="name"></p>
+                <img id="logout" src="../images/logout.svg" alt="">
+            </div>
+
+        </header>
+
         <div id="reservationDiv">
 
         </div>
-        <div id="disconnectBtn" class="button"><i class="fas fa-sign-out-alt"></i>Se déconnecter</div>
         
         <div id="container">
             <div id="mapContainer">
@@ -54,4 +64,5 @@
     <script src="../js/main/roomInfos.js"></script>
     <script src="../js/main/buttons.js" ></script>
     <script src="../js/main/plan.js" ></script>
+    <script src="../js/main/header.js" ></script>
 </html>

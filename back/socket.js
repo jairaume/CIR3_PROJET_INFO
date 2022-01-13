@@ -111,6 +111,10 @@ module.exports = function (http, session, db) {
             nom : ${reservation.nom}
             `)
         })
+
+        socket.on("askName", () => {
+            socket.emit("getName", socket.handshake.session.prenom);
+        });
     });
 
     // Fonctions utilisables dans "./routes.js"
