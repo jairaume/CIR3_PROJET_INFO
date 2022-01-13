@@ -77,15 +77,16 @@ socket.on('roomInfos',(data)=>{
 
 
 let refresh = (data)=>{
-    //updateAvailability();
-    let numeroEtage = document.getElementById("etages").value
-    console.log('data : ', data, 'num', numeroEtage)
-    initRoomInfos(data,etageObj["etage" + numeroEtage].salleEtage)
+    let actualInfosIs = actualInfos()
+    let numeroEtage = actualInfosIs.actualfloor
+    console.log('num ',numeroEtage)
+    //initRoomInfos(data,etageObj["etage" + numeroEtage].salleEtage)
+    /*
     $(document).ready(function () {
         let data2={};
         $('.map').maphilight({alwaysOn:true});
     });  
-
+    */
     
     let imgRemove = document.getElementById('map')
     let insertImage = document.getElementById('mapContainer')
@@ -96,7 +97,41 @@ let refresh = (data)=>{
     let etagenumber = etageObj["etage" + numeroEtage]
     insertImage.innerHTML = etagenumber.img
     insertImage.innerHTML += etagenumber.map
-    createRoomAreas(numeroEtage,etagenumber.salleEtage)
-    salleSettings(etagenumber.salleEtage)
-    updateAvailability(etagenumber.salleEtage)
+    //createRoomAreas(numeroEtage,etagenumber.salleEtage)
+    //salleSettings(etagenumber.salleEtage)
+    //updateAvailability(etagenumber.salleEtage)
+
+
+    socket.emit("askSallesInformations", actualInfosIs.actualfloor, actualInfosIs.actualAnnee, actualInfosIs.actualMois, actualInfosIs.actualJour, actualInfosIs.actualHorraire)
+    socket.on("getSallesInformations", (currentSalles)=>{
+        $(document).ready(function () {
+            let data={};
+            $('.map').maphilight({alwaysOn:true});
+        });
+        console.log("Les salles : ",currentSalles)
+        initRoomInfos(data,currentSalles)
+ 
+        createRoomAreas(document.getElementById('etages').value,currentSalles)
+        salleSettings(currentSalles)
+        updateAvailability(currentSalles)
+    })
+}
+
+
+let actualInfos = () =>{
+    let actualfloor = document.getElementById("etages").value
+    let actualDate = new Date(calendrier.value)
+    // Actualisation des champs jour,mois,année pour la DB
+    let options = {day:"2-digit",month:"2-digit",year:"numeric"}     // options pour avoir la date en format : xx/xx/xxxx
+    let dateForDB = actualDate.toLocaleDateString(undefined,options).split('/')
+    let actualHorraire = document.getElementById("creneaux").value
+
+    let obj = {
+        actualfloor:actualfloor,
+        actualJour:dateForDB[0],
+        actualMois:dateForDB[1],
+        actualAnnee:dateForDB[2],
+        actualHorraire:actualHorraire
+    }
+    return obj
 }

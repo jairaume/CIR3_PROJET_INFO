@@ -1,5 +1,4 @@
 // --------------------------- Affichage reservation et interactions ---------------------------
-
 /*const socket = require("../../../back/socket");
 
 let disconnectbtn = document.getElementById("disconnectBtn");
@@ -178,25 +177,29 @@ document.getElementById("reservation").addEventListener("click",event=>{
     event.preventDefault()
     let problems = {salle:false,jour:false,mois:false,annee:false,horraire:false}
     let isConnected
+
+    socket.emit("askIsConnected")
     socket.on("respondIsConnected", respondIsConnected => {
         isConnected=respondIsConnected
+        // Vérification de la validté de chaque élément envoyé à la DB
+        if(!reservDB.salle) problems.salle=true
+        if(!reservDB.jour) problems.jour=true
+        if(!reservDB.mois) problems.mois=true
+        if(!reservDB.annee) problems.annee=true
+        if(!reservDB.horraire) problems.horraire=true
+    
+        if(problems.salle) alert("Veuillez indiquer une salle à réserver.")
+        else if(problems.jour) alert("Veuillez indiquer un jour à réserver.")
+        else if(problems.mois) alert("Veuillez indiquer un mois à réserver.")
+        else if(problems.annee) alert("Veuillez indiquer une année à réserver.")
+        else if(problems.horraire) alert("Veuillez indiquer un horraire à réserver.")
+        else if(!isConnected) alert("Veuillez vous connecter avant de faire une reservation.")
+        else {
+            alert("Réussi")
+            socket.emit("createReservation",reservDB)
+            socket.emit('roomCaracteristiques')
+        }
     })
-
-    // Vérification de la validté de chaque élément envoyé à la DB
-    if(!reservDB.salle.value) problems.salle=true
-    if(!reservDB.jour.value) problems.jour=true
-    if(!reservDB.mois.value) problems.mois=true
-    if(!reservDB.annee.value) problems.annee=true
-    if(!reservDB.horraire.value) problems.horraire=true
-
-
-    if(problems.salle) alert("Veuillez indiquer une salle à réserver.")
-    else if(problems.jour) alert("Veuillez indiquer un jour à réserver.")
-    else if(problems.mois) alert("Veuillez indiquer un mois à réserver.")
-    else if(problems.annee) alert("Veuillez indiquer une année à réserver.")
-    else if(problems.horraire) alert("Veuillez indiquer un horraire à réserver.")
-    else if(!isConnected) alert("Veuillez vous connecter avant de faire une reservation.")
-    else socket.on("reservation",reservDB)
 })
 
 
@@ -204,12 +207,12 @@ document.getElementById("reservation").addEventListener("click",event=>{
 document.getElementById("etages").addEventListener("change",event=>{
     console.log("Etage à affiché : ",document.getElementById("etages").value)
     let newEtage = document.getElementById("etages").value;
-    //refresh(newEtage)
-    
     socket.emit('roomCaracteristiques')
-
-
-
-
 })
 
+// Interaction avec le bouton "creneau"
+document.getElementById("creneaux").addEventListener("change",event=>{
+    console.log("Crenau à affiché : ",document.getElementById("cren").value)
+    let newEtage = document.getElementById("etages").value;
+    socket.emit('roomCaracteristiques')
+})

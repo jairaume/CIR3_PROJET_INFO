@@ -17,14 +17,14 @@ let freehover = {
     fillColor:'00ff00',
     strokeColor:'00ff00',
     strokeWidth:'2',
-    fillOpacity:'0.5'
+    fillOpacity:'0.4'
 }
 let occupiedhover = {
     alwaysOn:true,
     fillColor:'ff0000',
     strokeColor:'ff00000',
     strokeWidth:'2',
-    fillOpacity:'0.5'
+    fillOpacity:'0.4'
 }
 let freeselect= {
     alwaysOn:true,
@@ -49,16 +49,18 @@ function envoyer(){
 
 
 function createRoomAreas(numeroEtage,areasEtage){
+    document.getElementById("etage"+numeroEtage).innerHTML=""
     areasEtage.forEach(e => {
         let tmpArea = document.createElement('area')
-        tmpArea.setAttribute('name',e.name)
+        tmpArea.setAttribute('name',e.room)
         if(e.reserve == true){
             tmpArea.setAttribute('reserve',true)
         }
         tmpArea.classList.add("etage"+numeroEtage)
         tmpArea.setAttribute('shape', e.shape)
         tmpArea.setAttribute('coords', e.coords)
-        tmpArea.setAttribute('id',e.name)
+        tmpArea.setAttribute('id',e.room)
+        console.log("je suis à l'étage numéro : " + numeroEtage)
         document.getElementById("etage"+numeroEtage).appendChild(tmpArea)
     });
 }
@@ -66,34 +68,33 @@ function createRoomAreas(numeroEtage,areasEtage){
 let salleSettings=(salleEtage)=>{
 
     for (const salle of salleEtage) {
-        let tmpName = salle.name
+        let tmpName = salle.room
         let tmpRes = salle.reserve
-        document.getElementById(salle.name).addEventListener('mouseover',()=>{
+        document.getElementById(salle.room).addEventListener('mouseover',()=>{
             if(!selected){
                 currentRoom = tmpName;
             }
             console.log('#'+tmpName)
-            $('#'+salle.name).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
+            $('#'+salle.room).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
         });
-        document.getElementById(salle.name).addEventListener('mouseleave',()=>{
+        document.getElementById(salle.room).addEventListener('mouseleave',()=>{
             if((selected && currentRoom!=tmpName) || !selected){
-                $('#'+salle.name).data('maphilight', tmpRes?occupied:free).trigger('alwaysOn.maphilight');
+                $('#'+salle.room).data('maphilight', tmpRes?occupied:free).trigger('alwaysOn.maphilight');
             }
             else{
-                $('#'+salle.name).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
+                $('#'+salle.room).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
             }
         })
-        document.getElementById(salle.name).addEventListener('click',()=>{
+        document.getElementById(salle.room).addEventListener('click',()=>{
             selected = true
             currentRoom = tmpName;
             console.log("You selected the room "+currentRoom+" !")
-            reservDB.salle = currentRoom
             removeAllSelected(salleEtage)
             $("#"+tmpName+"Infos").addClass('selected')
             for (const s of salleEtage) {   
-                $('#'+s.name).data('maphilight', s.reserve?occupied:free).trigger('alwaysOn.maphilight');
+                $('#'+s.room).data('maphilight', s.reserve?occupied:free).trigger('alwaysOn.maphilight');
             };
-            $('#'+salle.name).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
+            $('#'+salle.room).data('maphilight', tmpRes?occupiedselect:freeselect).trigger('alwaysOn.maphilight');
             reservDB.salle=currentRoom
         })
     }
@@ -104,10 +105,10 @@ function updateAvailability(areasEtage){
     console.log(areasEtage)
     areasEtage.forEach(e => {
         if(e.reserve){
-            $('#'+e.name).data('maphilight', occupied).trigger('alwaysOn.maphilight');
+            $('#'+e.room).data('maphilight', occupied).trigger('alwaysOn.maphilight');
         }
         else{
-            $('#'+e.name).data('maphilight', free).trigger('alwaysOn.maphilight');
+            $('#'+e.room).data('maphilight', free).trigger('alwaysOn.maphilight');
         }
     });
 }
@@ -116,7 +117,7 @@ function updateAvailability(areasEtage){
 function addDiv(room,areasEtage){
     let infoDiv = document.createElement('div')
     infoDiv.classList.add('salleList')
-    let ind = areasEtage.findIndex((e)=>e.name == room.room)
+    let ind = areasEtage.findIndex((e)=>e.room == room.room)
     if(ind !=-1){
         infoDiv.classList.add(!areasEtage[ind].reserve?'free':'occupied')
     }
@@ -146,25 +147,25 @@ function addDiv(room,areasEtage){
 function removeAllSelected(salleEtage){
     $('.salleList').removeClass('selected')
     for (const s of salleEtage) {   
-        $('#'+s.name).data('maphilight', s.reserve?occupied:free).trigger('alwaysOn.maphilight');
+        $('#'+s.room).data('maphilight', s.reserve?occupied:free).trigger('alwaysOn.maphilight');
     };
     updateAvailability(salleEtage);
 }
 function hoverRoom(room,areasEtage){
-    let ind = areasEtage.findIndex((e)=>e.name == room)
+    let ind = areasEtage.findIndex((e)=>e.room == room)
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?freehover:occupiedhover).trigger('alwaysOn.maphilight');
     }
 }
 function leaveRoom(room,areasEtage){
-    let ind = areasEtage.findIndex((e)=>e.name == room)
+    let ind = areasEtage.findIndex((e)=>e.room == room)
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?free:occupied).trigger('alwaysOn.maphilight');
     }
 }
 function selectRoom(room,areasEtage){
     removeAllSelected(areasEtage)
-    let ind = areasEtage.findIndex((e)=>e.name == room)
+    let ind = areasEtage.findIndex((e)=>e.room == room)
     
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?freeselect:occupiedselect).trigger('alwaysOn.maphilight');
@@ -176,10 +177,8 @@ function initRoomInfos(infosSalles,salleEtage){
     let modalContainer = document.getElementById('modalContainer')
     modalContainer.innerHTML="";
 
-    console.log(infosSalles)
     for (const sa of infosSalles) {
         if(sa.floor == document.getElementById("etages").value){
-            console.log("je créée la div pour la " + sa.room)
             addDiv(sa,salleEtage);
             
             $('#'+sa.room+"Infos").mouseover(function(e){
@@ -202,6 +201,7 @@ function initRoomInfos(infosSalles,salleEtage){
                 
                 selectRoom(sa.room,salleEtage)
                 $(this).addClass('selected')
+                reservDB.salle = currentRoom
             });
         }
     };

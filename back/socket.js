@@ -126,6 +126,27 @@ module.exports = function (http, session, db) {
                 socket.emit("getToken", md5(socket.handshake.session.email + socket.handshake.session.password));
             }
         })
+
+        socket.on("askSallesInformations", async (floor, annee, mois, jour, horraire) => {
+            let currentSalles = JSON.parse(JSON.stringify(Salles.filter((salle) => salle.floor == floor)));
+            let request = { $or: [] };
+            for (const salle of currentSalles) {
+                request.$or.push({ salle: salle.room, annee: annee, mois: mois, jour: jour, horraire: horraire });
+            }
+            let reservations = await db.getReservations(request);
+            currentSalles.map((salle) => {
+                if (reservations.find((s) => s.salle == salle.room)) {
+                    salle.reserve = true;
+                } else {
+                    salle.reserve = false;
+                }
+                delete salle.size;
+                delete salle.seats;
+                //delete salle.floor;
+            });
+            console.log(currentSalles);
+            socket.emit("getSallesInformations", (currentSalles));
+        });
     });
 
     // Fonctions utilisables dans "./routes.js"
