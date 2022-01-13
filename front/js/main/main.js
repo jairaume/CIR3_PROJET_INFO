@@ -87,6 +87,7 @@ let salleSettings=(salleEtage)=>{
             selected = true
             currentRoom = tmpName;
             console.log("You selected the room "+currentRoom+" !")
+            reservDB.salle = currentRoom
             removeAllSelected(salleEtage)
             $("#"+tmpName+"Infos").addClass('selected')
             for (const s of salleEtage) {   
@@ -112,9 +113,13 @@ function updateAvailability(areasEtage){
 }
 
 
-function addDiv(room){
+function addDiv(room,areasEtage){
     let infoDiv = document.createElement('div')
     infoDiv.classList.add('salleList')
+    let ind = areasEtage.findIndex((e)=>e.name == room.room)
+    if(ind !=-1){
+        infoDiv.classList.add(!areasEtage[ind].reserve?'free':'occupied')
+    }
     infoDiv.id = room.room+"Infos"
 
     let nameSalle = document.createElement("h3")
@@ -160,9 +165,11 @@ function leaveRoom(room,areasEtage){
 function selectRoom(room,areasEtage){
     removeAllSelected(areasEtage)
     let ind = areasEtage.findIndex((e)=>e.name == room)
+    
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?freeselect:occupiedselect).trigger('alwaysOn.maphilight');
     }
+    return areasEtage[ind].reserve
 }
 
 function initRoomInfos(infosSalles,salleEtage){
@@ -173,7 +180,7 @@ function initRoomInfos(infosSalles,salleEtage){
     for (const sa of infosSalles) {
         if(sa.floor == document.getElementById("etages").value){
             console.log("je créée la div pour la " + sa.room)
-            addDiv(sa);
+            addDiv(sa,salleEtage);
             
             $('#'+sa.room+"Infos").mouseover(function(e){
                 if((selected && sa.room != currentRoom) || !selected){
@@ -191,6 +198,7 @@ function initRoomInfos(infosSalles,salleEtage){
                 selected = true;
                 currentRoom=sa.room
                 console.log("You selected the room "+currentRoom+" !")
+                reservDB.salle = currentRoom
                 
                 selectRoom(sa.room,salleEtage)
                 $(this).addClass('selected')

@@ -6,6 +6,24 @@ $primary: rgb(65, 187, 120);
 $blue: rgb(79, 139, 228);
 $red: rgb(231, 76, 60);
 
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+
 
 /////////////////////////////////////////////
 @import url('https://fonts.googleapis.com/css2?family=Hanalei+Fill&family=Noto+Sans&display=swap');
@@ -35,6 +53,7 @@ html {
     background-color: $white;
     color: $black;
 }
+
 #flexbox{
     display:flex;
     flex-flow:row-wrap;
@@ -58,9 +77,11 @@ html {
     }
     &:active{
         background:darken($black,10);
+        box-shadow : 0px 0px 0px .4rem darken($white,30);
+        transition-duration: .1s;
     }
     & i {
-        padding:0 .5rem;
+        padding:0 .5rem 0 0;
     }
 }
 
@@ -69,6 +90,12 @@ html {
     flex-flow: row-wrap;
     width:100%;
 }
+#calendarContainer{
+    margin:1rem;
+}
+
+
+
 #mapContainer{
     margin:1rem;
     background-color: darken($white,10);
@@ -89,6 +116,7 @@ html {
     margin:.6rem .6rem;
     padding:.3rem;
     border-radius:.5rem;
+    transition-duration: .3s;
 
     & .infos{
         display:flex;
@@ -112,13 +140,26 @@ html {
     }
 
     &:hover{
-        background:darken($white,30);
         cursor:pointer;
     }
-    &:active, &.selected{
-        background:$blue;
-        box-shadow : 0px 0px 0px .3rem darken($white,30);
+    &:active.free, &.selected.free{
+        box-shadow : 0px 0px 0px .3rem darken($black,30);
         transition-duration: .3s;
+    }
+    &.free{
+        background: $primary;
+        &:hover{
+            background: darken($primary,10);
+        }
+    }
+    &.occupied{
+        background: $red;
+        &:hover{
+            background: darken($red,10);
+        }
+        &:active, &.selected{
+            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        }
     }
 
 }
