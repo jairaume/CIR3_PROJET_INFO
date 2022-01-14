@@ -200,10 +200,10 @@ function initRoomInfos(infosSalles,salleEtage){
                     console.log(salleEtage[ind].reserve)
                     if(!salleEtage[ind].reserve){
                         selected = true;
+                        currentRoom=sa.room
                         reservDB.salle = currentRoom
                         selectRoom(sa.room,salleEtage)
                         $(this).addClass('selected')
-                        currentRoom=sa.room
                     }
                     else{
                         currentRoom=undefined
