@@ -79,14 +79,6 @@ socket.on('roomInfos',(data)=>{
 let refresh = (data)=>{
     let actualInfosIs = actualInfos()
     let numeroEtage = actualInfosIs.actualfloor
-    //initRoomInfos(data,etageObj["etage" + numeroEtage].salleEtage)
-    /*
-    $(document).ready(function () {
-        let data2={};
-        $('.map').maphilight({alwaysOn:true});
-    });  
-    */
-    
     let imgRemove = document.getElementById('map')
     let insertImage = document.getElementById('mapContainer')
     if(imgRemove){
@@ -96,10 +88,6 @@ let refresh = (data)=>{
     let etagenumber = etageObj["etage" + numeroEtage]
     insertImage.innerHTML = etagenumber.img
     insertImage.innerHTML += etagenumber.map
-    //createRoomAreas(numeroEtage,etagenumber.salleEtage)
-    //salleSettings(etagenumber.salleEtage)
-    //updateAvailability(etagenumber.salleEtage)
-
 
     socket.emit("askSallesInformations", actualInfosIs.actualfloor, actualInfosIs.actualAnnee, actualInfosIs.actualMois, actualInfosIs.actualJour, actualInfosIs.actualHorraire)
     socket.on("getSallesInformations", (currentSalles)=>{

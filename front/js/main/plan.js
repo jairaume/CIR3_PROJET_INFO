@@ -1,14 +1,4 @@
 // --------------------------- Affichage reservation et interactions ---------------------------
-/*const socket = require("../../../back/socket");
-
-let disconnectbtn = document.getElementById("disconnectBtn");
-
-disconnectbtn.addEventListener('click',()=>{
-    socket.emit('leave');
-    window.location.reload();
-})*/
-
-
 let reservDB = {
     salle:String,
     annee: Number,
@@ -42,11 +32,8 @@ let creneauxNbr = creneaux.length+1
 let etages = [0,1,2,3,4]
 
 /* ------------- Creneau actuel --------------- */
-//let body = document.getElementsByTagName("body")[0]
 let reservationDiv = document.getElementById("reservationDiv")
 let div = document.createElement("div")
-
-
 
 /* ------------- Balise de la reservation --------------- */
 
@@ -126,8 +113,6 @@ reservDiv.innerHTML+=boutonDB
 reservationDiv.appendChild(reservDiv)
 reservationDiv.appendChild(calendrierDiv)
 
-//reservationDiv.appendChild(infoDiv) // a suppr
-
 /* ------------- Actualisation des champs lors d'interactions --------------- */
 
 reservDB.horraire = document.getElementById('creneaux').value
@@ -140,8 +125,8 @@ document.getElementById("creneaux").addEventListener("change",event=>{
 // Lien entre le calendrier à droite et l'affichage de la date de reservation à gauche, lors d'un changement du calendrier
 // Actualisation de la valeur de "année","mois","jour" qui sera envoyée à la DB
 calendrier.addEventListener("change",event=>{
+    
     event.preventDefault();
-
     let dateDiv = document.getElementById("dateText")
     let newDate = new Date(calendrier.value)
 
@@ -208,7 +193,7 @@ document.getElementById("reservation").addEventListener("click",event=>{
         if(!reservDB.annee) problems.annee=true
         if(!reservDB.horraire) problems.horraire=true
     
-        if(problems.salle){divAlert("Veuillez indiquer une salle à réserver.",false);explode(event.pageX, event.pageY);}
+        if(problems.salle){divAlert("Veuillez selectionner une salle disponible pour réservation.",false);explode(event.pageX, event.pageY);}
         else if(problems.jour) {divAlert("Veuillez indiquer un jour à réserver.",false);explode(event.pageX, event.pageY);}
         else if(problems.mois){ divAlert("Veuillez indiquer un mois à réserver.",false);explode(event.pageX, event.pageY);}
         else if(problems.annee){ divAlert("Veuillez indiquer une année à réserver.",false);explode(event.pageX, event.pageY);}
@@ -229,22 +214,18 @@ socket.on('reservationCreated',()=>{
 
 // Interaction avec le bouton "etages"
 document.getElementById("etages").addEventListener("change",event=>{
-    let newEtage = document.getElementById("etages").value;
     socket.emit('roomCaracteristiques')
 })
 
 // Interaction avec le bouton "creneau"
 document.getElementById("creneaux").addEventListener("change",event=>{
-   reservDB.horraire = document.getElementById("creneaux").value
-
-    let newEtage = document.getElementById("etages").value;
+    reservDB.horraire = document.getElementById("creneaux").value
     socket.emit('roomCaracteristiques')
 })
 
 document.getElementById("calendrier").addEventListener("change",event=>{
     reservDB.date = document.getElementById("calendrier").value
- 
-     socket.emit('roomCaracteristiques')
+    socket.emit('roomCaracteristiques')
  })
 
 function launchConfetti(){
