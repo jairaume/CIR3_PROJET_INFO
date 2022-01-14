@@ -1,42 +1,42 @@
 let occupied = {
     alwaysOn:true,
-    fillColor:'ff0000',
-    strokeColor:'ff00000',
+    fillColor:'e74c3c',
+    strokeColor:'e74c3c',
     strokeWidth:'2',
     fillOpacity:'0.2'
 }
 let free = {
     alwaysOn:true,
-    fillColor:'00ff00',
-    strokeColor:'00ff00',
+    fillColor:'41bb78',
+    strokeColor:'41bb78',
     strokeWidth:'2',
     fillOpacity:'0.2'
 }
 let freehover = {
     alwaysOn:true,
-    fillColor:'00ff00',
-    strokeColor:'00ff00',
+    fillColor:'41bb78',
+    strokeColor:'41bb78',
     strokeWidth:'2',
     fillOpacity:'0.4'
 }
 let occupiedhover = {
     alwaysOn:true,
-    fillColor:'ff0000',
-    strokeColor:'ff00000',
+    fillColor:'e74c3c',
+    strokeColor:'e74c3c',
     strokeWidth:'2',
     fillOpacity:'0.4'
 }
 let freeselect= {
     alwaysOn:true,
-    fillColor:'00ff00',
-    strokeColor:'00ff00',
+    fillColor:'41bb78',
+    strokeColor:'41bb78',
     strokeWidth:'2',
     fillOpacity:'0.7'
 }
 let occupiedselect = {
     alwaysOn:true,
-    fillColor:'ff0000',
-    strokeColor:'ff00000',
+    fillColor:'e74c3c',
+    strokeColor:'e74c3c',
     strokeWidth:'2',
     fillOpacity:'0.7'
 }

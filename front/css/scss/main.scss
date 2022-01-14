@@ -109,12 +109,13 @@ header{
 
 #switchBtn{
     height:2rem;
+    margin-top:1.5rem;
 }
 
 #flexbox, .flexbox, .reservationDiv{
     display:flex;
     flex-flow:row-wrap;
-    margin:1rem;
+    margin:.5rem 1rem;
     border-radius: .3rem;
     background:darken($white,10);
 }
