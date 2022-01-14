@@ -5,9 +5,8 @@ html {
 h1 {
     margin: 90px 0;
     -webkit-text-stroke: 0.5px #4e5055;
-    color: #e0e0e0;
+    color: #4e5055;
     font-size: 50px;
-    font-family: "Heltivica";
 }
 
 #formLogin,
@@ -20,6 +19,12 @@ h1 {
     margin-top: 80px;
     flex-direction: column;
     padding: 30px 30px;
+    transition-duration: .2s;
+}
+#formLogin:hover
+#formRegister:hover{
+    box-shadow : 0px 0px 0px 4px #8d8d8d;
+    transition-duration: .2s;
 }
 
 #formRegister {
@@ -31,8 +36,15 @@ h1 {
     margin: 5px 0;
     padding: 8px 10px;
     outline: none;
-    border: rgb(141, 141, 141) solid 1px;
+    box-shadow : 0px 0px 0px 1px #8d8d8d;
+    border:none;
     border-radius: 5px;
+    transition-duration: .2s;
+}
+#formLogin > input:focus,
+#formRegister > input:focus{
+    box-shadow : 0px 0px 0px 4px #8d8d8d;
+    transition-duration: .2s;
 }
 
 #formLogin > button,
@@ -40,11 +52,20 @@ h1 {
     margin: 5px 0;
     padding: 8px 10px;
     outline: none;
-    border: rgb(141, 141, 141) solid 1px;
+    box-shadow : 0px 0px 0px 1px #8d8d8d;
+    border:none;
     border-radius: 5px;
     cursor: pointer;
-    color: #4e5055;
+    background: #383838;
+    color: #F9F9F9;
+    transition-duration: .2s;
 }
+#formLogin > button:hover,
+#formRegister > button:hover{
+    box-shadow : 0px 0px 0px 4px #8d8d8d;
+    transition-duration: .2s;
+    color:rgb(255, 255, 255);
+} 
 
 
 #formLogin > select,
@@ -57,10 +78,16 @@ h1 {
 #register,
 #login {
     cursor: pointer;
-    color: #4e5055;
+    color: #696969;
     margin: 20px 0 0 0;
+    transition-duration: .2s;
 }
 
+#register:hover,
+#login:hover{
+    color:black;
+    transition-duration: .2s;
+} 
 #promo {
     margin: 5px 0;
     padding: 8px 5px;
