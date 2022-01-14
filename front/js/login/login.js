@@ -15,13 +15,11 @@ const passwordRegister = document.getElementById("passwordRegister");
 let join = false;
 
 formLogin.addEventListener("submit", (event) => {
-    console.log("Connection");
     event.preventDefault();
     logger.connexion(email.value, password.value);
 });
 
 formRegister.addEventListener("submit", (event) => {
-    console.log("Inscription");
     event.preventDefault();
     logger.inscription(nom.value, prenom.value, promo.value, emailRegister.value, passwordRegister.value);
 });

@@ -11,7 +11,6 @@ module.exports = function (http, session, db) {
 
     io.on("connection", (socket) => {
         socket.on("createReservation", ({ salle, annee, mois, jour, horraire }) => {
-            console.log(salle, annee, mois, jour, horraire);
             if (salle && annee && mois && jour && horraire) {
                 db.getReservations({ salle, annee, mois, jour, horraire }).then((reservations) => {
                     if (reservations.length == 0) {
@@ -102,7 +101,6 @@ module.exports = function (http, session, db) {
         });
 
         socket.on("askIsConnected", () => {
-            console.log("isConnected, email : ", socket.handshake.session.email);
             socket.emit("respondIsConnected", socket.handshake.session.email);
         });
 

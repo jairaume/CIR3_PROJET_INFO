@@ -197,7 +197,6 @@ function initRoomInfos(infosSalles,salleEtage){
                 e.preventDefault(); 
                 let ind = salleEtage.findIndex((e)=>e.room == sa.room)
                 if(ind !=-1){
-                    console.log(salleEtage[ind].reserve)
                     if(!salleEtage[ind].reserve){
                         selected = true;
                         currentRoom=sa.room
