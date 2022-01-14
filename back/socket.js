@@ -50,9 +50,13 @@ module.exports = function (http, session, db) {
                 socket.emit("respondEvents", response);
             });
         });
+        socket.on("getIsAdmin", () => {
+            socket.emit("isAdmin", socket.handshake.session.admin)
+        });
         socket.on("askReservations", () => {
             let prenom = socket.handshake.session.prenom;
             let nom = socket.handshake.session.nom;
+            if(!socket.handshake.session.admin) {
             db.getReservations({ prenom: prenom, nom: nom })
                 .then((reservations) => {
                     socket.emit("getReservations", reservations);
@@ -60,6 +64,16 @@ module.exports = function (http, session, db) {
                 .catch((err) => {
                     socket.emit("reservationError", err);
                 });
+            }
+            else {
+                db.getReservations({})
+                .then((reservations) => {
+                    socket.emit("getReservations", reservations);
+                })
+                .catch((err) => {
+                    socket.emit("reservationError", err);
+                });
+            }
         });
 
         socket.on("isRoomAvailable", (roomNumber) => {
