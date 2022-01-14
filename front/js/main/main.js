@@ -1,42 +1,42 @@
 let occupied = {
     alwaysOn:true,
-    fillColor:'ff0000',
-    strokeColor:'ff00000',
+    fillColor:'e74c3c',
+    strokeColor:'e74c3c',
     strokeWidth:'2',
     fillOpacity:'0.2'
 }
 let free = {
     alwaysOn:true,
-    fillColor:'00ff00',
-    strokeColor:'00ff00',
+    fillColor:'41bb78',
+    strokeColor:'41bb78',
     strokeWidth:'2',
     fillOpacity:'0.2'
 }
 let freehover = {
     alwaysOn:true,
-    fillColor:'00ff00',
-    strokeColor:'00ff00',
+    fillColor:'41bb78',
+    strokeColor:'41bb78',
     strokeWidth:'2',
     fillOpacity:'0.4'
 }
 let occupiedhover = {
     alwaysOn:true,
-    fillColor:'ff0000',
-    strokeColor:'ff00000',
+    fillColor:'e74c3c',
+    strokeColor:'e74c3c',
     strokeWidth:'2',
     fillOpacity:'0.4'
 }
 let freeselect= {
     alwaysOn:true,
-    fillColor:'00ff00',
-    strokeColor:'00ff00',
+    fillColor:'41bb78',
+    strokeColor:'41bb78',
     strokeWidth:'2',
     fillOpacity:'0.7'
 }
 let occupiedselect = {
     alwaysOn:true,
-    fillColor:'ff0000',
-    strokeColor:'ff00000',
+    fillColor:'e74c3c',
+    strokeColor:'e74c3c',
     strokeWidth:'2',
     fillOpacity:'0.7'
 }
@@ -169,7 +169,6 @@ function leaveRoom(room,areasEtage){
 function selectRoom(room,areasEtage){
     removeAllSelected(areasEtage)
     let ind = areasEtage.findIndex((e)=>e.room == room)
-    
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?freeselect:occupiedselect).trigger('alwaysOn.maphilight');
     }
@@ -196,19 +195,24 @@ function initRoomInfos(infosSalles,salleEtage){
             })
             .click(function(e) { 
                 e.preventDefault(); 
-                if(!sa.reserve){
-                    selected = true;
-                    reservDB.salle = currentRoom
+                let ind = salleEtage.findIndex((e)=>e.room == sa.room)
+                if(ind !=-1){
+                    console.log(salleEtage[ind].reserve)
+                    if(!salleEtage[ind].reserve){
+                        selected = true;
+                        currentRoom=sa.room
+                        reservDB.salle = currentRoom
+                        selectRoom(sa.room,salleEtage)
+                        $(this).addClass('selected')
+                    }
+                    else{
+                        currentRoom=undefined
+                        selected = false;
+                        reservDB.salle = undefined;
+                        nanPlay();
+                    }
                 }
-                else{
-                    selected = false;
-                    reservDB.salle = null;
-                    nanPlay();
-                }
-                currentRoom=sa.room
                 
-                selectRoom(sa.room,salleEtage)
-                $(this).addClass('selected')
             });
         }
     };

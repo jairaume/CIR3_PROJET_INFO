@@ -58,6 +58,17 @@ header{
     margin-bottom: 0;
 }
 
+#logout, #pp{
+    transition-duration: .2s;
+    &:hover{
+        transform:scale(1.1);
+        transition-duration: .2s;
+    }
+}
+#title:hover{
+    color:darken($white,12);
+}
+
 #alertDivContainer{
     margin:0;
     padding:0;
@@ -98,12 +109,13 @@ header{
 
 #switchBtn{
     height:2rem;
+    margin-top:1.5rem;
 }
 
 #flexbox, .flexbox, .reservationDiv{
     display:flex;
     flex-flow:row-wrap;
-    margin:1rem;
+    margin:.5rem 1rem;
     border-radius: .3rem;
     background:darken($white,10);
 }
