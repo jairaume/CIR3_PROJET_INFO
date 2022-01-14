@@ -38,6 +38,10 @@ h1 {
     text-align: center;
     border-radius: 5px;
     height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .card > h2 {

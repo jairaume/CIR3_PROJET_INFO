@@ -5,11 +5,11 @@ var admin;
 
 let currentDate = new Date();
 
-socket.emit("askReservations");
 socket.emit("getIsAdmin");
 socket.on("isAdmin", (data) => {
    admin = data;
 
+   socket.emit("askReservations");
    socket.on("getReservations", (reservations) => {
     if (reservations.length == 0) {
       past.innerHTML = "Vous n'avez pas de réservation";
