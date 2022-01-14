@@ -219,7 +219,7 @@ document.getElementById("reservation").addEventListener("click",event=>{
             divAlert("Votre salle "+ reservDB.salle + " a été réservée avec succès !",true)
             socket.emit("createReservation",reservDB)
             socket.emit('roomCaracteristiques')
-            reservDB.salle = null;
+            reservDB.salle = undefined;
         }
     })
 })

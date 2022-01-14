@@ -35,6 +35,18 @@ header {
   margin-bottom: 0;
 }
 
+#logout, #pp {
+  transition-duration: 0.2s;
+}
+#logout:hover, #pp:hover {
+  transform: scale(1.1);
+  transition-duration: 0.2s;
+}
+
+#title:hover {
+  color: #dadada;
+}
+
 #alertDivContainer {
   margin: 0;
   padding: 0;

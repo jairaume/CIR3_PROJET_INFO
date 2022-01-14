@@ -169,7 +169,6 @@ function leaveRoom(room,areasEtage){
 function selectRoom(room,areasEtage){
     removeAllSelected(areasEtage)
     let ind = areasEtage.findIndex((e)=>e.room == room)
-    
     if(ind !=-1){
         $('#'+room).data('maphilight', !areasEtage[ind].reserve ?freeselect:occupiedselect).trigger('alwaysOn.maphilight');
     }
@@ -196,19 +195,24 @@ function initRoomInfos(infosSalles,salleEtage){
             })
             .click(function(e) { 
                 e.preventDefault(); 
-                if(!sa.reserve){
-                    selected = true;
-                    reservDB.salle = currentRoom
+                let ind = salleEtage.findIndex((e)=>e.room == sa.room)
+                if(ind !=-1){
+                    console.log(salleEtage[ind].reserve)
+                    if(!salleEtage[ind].reserve){
+                        selected = true;
+                        reservDB.salle = currentRoom
+                        selectRoom(sa.room,salleEtage)
+                        $(this).addClass('selected')
+                        currentRoom=sa.room
+                    }
+                    else{
+                        currentRoom=undefined
+                        selected = false;
+                        reservDB.salle = undefined;
+                        nanPlay();
+                    }
                 }
-                else{
-                    selected = false;
-                    reservDB.salle = null;
-                    nanPlay();
-                }
-                currentRoom=sa.room
                 
-                selectRoom(sa.room,salleEtage)
-                $(this).addClass('selected')
             });
         }
     };
