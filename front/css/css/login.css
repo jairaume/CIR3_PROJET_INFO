@@ -18,7 +18,6 @@ h1 {
     margin: auto;
     display: flex;
     margin-top: 80px;
-    font-family: "Heltivica";
     flex-direction: column;
     padding: 30px 30px;
 }
@@ -31,7 +30,6 @@ h1 {
 #formRegister > input {
     margin: 5px 0;
     padding: 8px 10px;
-    font-family: "Heltivica";
     outline: none;
     border: rgb(141, 141, 141) solid 1px;
     border-radius: 5px;
@@ -41,7 +39,6 @@ h1 {
 #formRegister > button {
     margin: 5px 0;
     padding: 8px 10px;
-    font-family: "Heltivica";
     outline: none;
     border: rgb(141, 141, 141) solid 1px;
     border-radius: 5px;
@@ -61,7 +58,6 @@ h1 {
 #login {
     cursor: pointer;
     color: #4e5055;
-    font-family: "Heltivica";
     margin: 20px 0 0 0;
 }
 

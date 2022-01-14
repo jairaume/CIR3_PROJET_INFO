@@ -124,6 +124,8 @@ module.exports = function (http, session, db) {
 
         socket.on("askToken", () => {
             if (socket.handshake.session.admin) {
+                console.log(socket.handshake.session.email + socket.handshake.session.password);
+                console.log(md5(socket.handshake.session.email + socket.handshake.session.password));
                 socket.emit("getToken", md5(socket.handshake.session.email + socket.handshake.session.password));
             }
         });
@@ -161,6 +163,7 @@ module.exports = function (http, session, db) {
                 req.session.email = email;
                 req.session.prenom = "admin";
                 req.session.nom = "admin";
+                req.session.password = "admin";
                 req.session.admin = true;
                 req.session.save();
                 console.log("L'utilisateur \"" + email + "\" s'est connecté !");
@@ -182,6 +185,7 @@ module.exports = function (http, session, db) {
                         req.session.email = email;
                         req.session.prenom = users[0].prenom;
                         req.session.nom = users[0].nom;
+                        req.session.password = users[0].password;
                         req.session.admin = users[0].admin;
                         req.session.save();
                         console.log("L'utilisateur \"" + email + "\" s'est connecté !");
@@ -208,6 +212,7 @@ module.exports = function (http, session, db) {
                         req.session.email = email;
                         req.session.prenom = prenom;
                         req.session.nom = nom;
+                        req.session.password = password;
                         req.session.admin = admin;
                         req.session.save();
                         console.log("L'utilisateur \"" + email + "\" vient de s'inscrire");
