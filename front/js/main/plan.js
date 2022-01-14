@@ -85,6 +85,7 @@ let dateTextDiv = "<div id='dateText' class='flexbox'>"+dateText+"</div>"
 let creneauDiv = "<div class='flexbox'><p>Creneau :</p> <select id='creneaux'>"+option+"</select></div>"
 let etageDiv = "<div class='flexbox'><p>Etage : </p><select id='etages'>"+option2+"</select></div>"
 
+            
 reservDiv.innerHTML= dateTextDiv+creneauDiv+etageDiv
 
 /* ------------- Balise du calendrier --------------- */
@@ -116,7 +117,6 @@ infoDiv.innerHTML = infoButton
 
 infoDiv.addEventListener("click",event=>{
     event.preventDefault()
-    console.log(reservDB)
 })
 
 // Bouton "Envoyer à la DB"
@@ -172,32 +172,54 @@ calendrier.addEventListener("change",event=>{
     dateDiv.textContent=dateFinale
 })
 
+function divAlert(text,success){
+    if(success){
+        $("#alertDiv").addClass("success")
+        $("#alertDiv").removeClass("echec")
+    }
+    else{
+        $("#alertDiv").addClass("echec")
+        $("#alertDiv").removeClass("success")
+    }
+    $("#alertDiv").html(!success?'<i class="fas fa-exclamation-triangle"></i>' + text + '<i class="fas fa-exclamation-triangle"></i>': '<i class="far fa-check-circle"></i>'+text+'<i class="far fa-check-circle"></i>');
+    $("#alertDiv").addClass("show")
+    $("#alertDiv").removeClass("hide")
+
+    setTimeout(()=>{
+        $("#alertDiv").removeClass("show")
+        $("#alertDiv").addClass("hide")
+    },3000)
+}
+
 // Interaction avec le bouton "Reserver cette salle"
 document.getElementById("reservation").addEventListener("click",event=>{
     event.preventDefault()
     let problems = {salle:false,jour:false,mois:false,annee:false,horraire:false}
     let isConnected
-
     socket.emit("askIsConnected")
-    socket.on("respondIsConnected", respondIsConnected => {
+    socket.once("respondIsConnected", respondIsConnected => {
         isConnected=respondIsConnected
         // Vérification de la validté de chaque élément envoyé à la DB
         if(!reservDB.salle) problems.salle=true
+        else if(reservDB.salle.length != 4) problems.salle=true
+        
         if(!reservDB.jour) problems.jour=true
         if(!reservDB.mois) problems.mois=true
         if(!reservDB.annee) problems.annee=true
         if(!reservDB.horraire) problems.horraire=true
     
-        if(problems.salle) alert("Veuillez indiquer une salle à réserver.")
-        else if(problems.jour) alert("Veuillez indiquer un jour à réserver.")
-        else if(problems.mois) alert("Veuillez indiquer un mois à réserver.")
-        else if(problems.annee) alert("Veuillez indiquer une année à réserver.")
-        else if(problems.horraire) alert("Veuillez indiquer un horraire à réserver.")
-        else if(!isConnected) alert("Veuillez vous connecter avant de faire une reservation.")
+        if(problems.salle){divAlert("Veuillez indiquer une salle à réserver.",false);explode(event.pageX, event.pageY);}
+        else if(problems.jour) {divAlert("Veuillez indiquer un jour à réserver.",false);explode(event.pageX, event.pageY);}
+        else if(problems.mois){ divAlert("Veuillez indiquer un mois à réserver.",false);explode(event.pageX, event.pageY);}
+        else if(problems.annee){ divAlert("Veuillez indiquer une année à réserver.",false);explode(event.pageX, event.pageY);}
+        else if(problems.horraire) {divAlert("Veuillez indiquer un horraire à réserver.",false);explode(event.pageX, event.pageY);}
+        else if(!isConnected) {divAlert("Veuillez vous connecter avant de faire une reservation.",false);explode(event.pageX, event.pageY);}
         else {
             launchConfetti();
+            divAlert("Votre salle "+ reservDB.salle + " a été réservée avec succès !",true)
             socket.emit("createReservation",reservDB)
             socket.emit('roomCaracteristiques')
+            reservDB.salle = null;
         }
     })
 })
@@ -207,7 +229,6 @@ socket.on('reservationCreated',()=>{
 
 // Interaction avec le bouton "etages"
 document.getElementById("etages").addEventListener("change",event=>{
-    console.log("Etage à affiché : ",document.getElementById("etages").value)
     let newEtage = document.getElementById("etages").value;
     socket.emit('roomCaracteristiques')
 })
@@ -216,7 +237,6 @@ document.getElementById("etages").addEventListener("change",event=>{
 document.getElementById("creneaux").addEventListener("change",event=>{
    reservDB.horraire = document.getElementById("creneaux").value
 
-    console.log("Creneau à affiché : ",document.getElementById("creneaux").value)
     let newEtage = document.getElementById("etages").value;
     socket.emit('roomCaracteristiques')
 })
@@ -224,12 +244,12 @@ document.getElementById("creneaux").addEventListener("change",event=>{
 document.getElementById("calendrier").addEventListener("change",event=>{
     reservDB.date = document.getElementById("calendrier").value
  
-     console.log("Creneau à affiché : ",document.getElementById("calendrier").value)
      socket.emit('roomCaracteristiques')
  })
 
 function launchConfetti(){
-    startConfetti();    
+    startConfetti(); 
+    confettiPlay()   
     setTimeout(()=>{
         stopConfetti();
     },3000)

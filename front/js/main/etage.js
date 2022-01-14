@@ -79,7 +79,6 @@ socket.on('roomInfos',(data)=>{
 let refresh = (data)=>{
     let actualInfosIs = actualInfos()
     let numeroEtage = actualInfosIs.actualfloor
-    console.log('num ',numeroEtage)
     //initRoomInfos(data,etageObj["etage" + numeroEtage].salleEtage)
     /*
     $(document).ready(function () {
@@ -108,7 +107,6 @@ let refresh = (data)=>{
             let data={};
             $('.map').maphilight({alwaysOn:true});
         });
-        console.log("Les salles : ",currentSalles)
         initRoomInfos(data,currentSalles)
  
         createRoomAreas(document.getElementById('etages').value,currentSalles)

@@ -60,7 +60,6 @@ function createRoomAreas(numeroEtage,areasEtage){
         tmpArea.setAttribute('shape', e.shape)
         tmpArea.setAttribute('coords', e.coords)
         tmpArea.setAttribute('id',e.room)
-        console.log("je suis à l'étage numéro : " + numeroEtage)
         document.getElementById("etage"+numeroEtage).appendChild(tmpArea)
     });
 }
@@ -74,7 +73,6 @@ let salleSettings=(salleEtage)=>{
             if(!selected){
                 currentRoom = tmpName;
             }
-            console.log('#'+tmpName)
             $('#'+salle.room).data('maphilight', tmpRes?occupiedhover:freehover).trigger('alwaysOn.maphilight');
         });
         document.getElementById(salle.room).addEventListener('mouseleave',()=>{
@@ -88,7 +86,6 @@ let salleSettings=(salleEtage)=>{
         document.getElementById(salle.room).addEventListener('click',()=>{
             selected = true
             currentRoom = tmpName;
-            console.log("You selected the room "+currentRoom+" !")
             removeAllSelected(salleEtage)
             $("#"+tmpName+"Infos").addClass('selected')
             for (const s of salleEtage) {   
@@ -98,11 +95,10 @@ let salleSettings=(salleEtage)=>{
             if(!salle.reserve){
                 selected = true;
                 reservDB.salle = currentRoom
-                console.log(currentRoom)
             }
             else{
                 selected = false;
-                reservDB.salle = ""
+                reservDB.salle = null
             }
         })
     }
@@ -110,7 +106,6 @@ let salleSettings=(salleEtage)=>{
 
 
 function updateAvailability(areasEtage){
-    console.log(areasEtage)
     areasEtage.forEach(e => {
         if(e.reserve){
             $('#'+e.room).data('maphilight', occupied).trigger('alwaysOn.maphilight');
@@ -204,14 +199,13 @@ function initRoomInfos(infosSalles,salleEtage){
                 if(!sa.reserve){
                     selected = true;
                     reservDB.salle = currentRoom
-                    console.log(currentRoom)
                 }
                 else{
                     selected = false;
-                    reservDB.salle = "";
+                    reservDB.salle = null;
+                    nanPlay();
                 }
                 currentRoom=sa.room
-                console.log("You selected the room "+currentRoom+" !")
                 
                 selectRoom(sa.room,salleEtage)
                 $(this).addClass('selected')

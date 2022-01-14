@@ -31,6 +31,52 @@ html {
   color: #383838;
 }
 
+header {
+  margin-bottom: 0;
+}
+
+#alertDivContainer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  transition-duration: 1s;
+}
+
+#alertDiv {
+  background: #e74c3c;
+  font-weight: bold;
+  color: white;
+  padding: 1rem;
+  transition-duration: 1s;
+}
+#alertDiv i {
+  margin: 0 2rem;
+}
+#alertDiv.hide {
+  opacity: 0;
+  transition: opacity 1s linear;
+  -webkit-transition: opacity 1s linear;
+  -moz-transition: opacity 1s linear;
+  -o-transition: opacity 1s linear;
+}
+#alertDiv.show {
+  opacity: 1;
+  transition: opacity 1s linear;
+  -webkit-transition: opacity 1s linear;
+  -moz-transition: opacity 1s linear;
+  -o-transition: opacity 1s linear;
+}
+#alertDiv.success {
+  background: #41bb78;
+}
+#alertDiv.echec {
+  background: #e74c3c;
+}
+
+#switchBtn {
+  height: 2rem;
+}
+
 #flexbox, .flexbox, .reservationDiv {
   display: flex;
   flex-flow: row-wrap;

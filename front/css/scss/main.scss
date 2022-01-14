@@ -3,6 +3,7 @@
 $black: #383838;
 $white: #f9f9f9;
 $primary: rgb(65, 187, 120);
+$green: rgb(65, 187, 120);
 $blue: rgb(79, 139, 228);
 $red: rgb(231, 76, 60);
 
@@ -52,6 +53,51 @@ html {
     text-align: center;
     background-color: $white;
     color: $black;
+}
+header{
+    margin-bottom: 0;
+}
+
+#alertDivContainer{
+    margin:0;
+    padding:0;
+    width:100%;
+    transition-duration: 1s;
+    
+}
+#alertDiv{
+    background:$red;
+    font-weight: bold;
+    color:white;
+    padding:1rem;
+    transition-duration: 1s;
+    & i{
+        margin: 0 2rem;
+    }
+    &.hide {
+        opacity: 0;
+        transition: opacity 1s linear;
+        -webkit-transition: opacity 1s linear;
+        -moz-transition: opacity 1s linear;
+        -o-transition: opacity 1s linear;
+      }
+    &.show {
+        opacity: 1;
+        transition: opacity 1s linear;
+        -webkit-transition: opacity 1s linear;
+        -moz-transition: opacity 1s linear;
+        -o-transition: opacity 1s linear;
+    }
+    &.success{
+        background: $green;
+    }
+    &.echec{
+        background: $red;
+    }
+}
+
+#switchBtn{
+    height:2rem;
 }
 
 #flexbox, .flexbox, .reservationDiv{
@@ -181,7 +227,6 @@ html {
     }
 
 }
-
 
 
   
